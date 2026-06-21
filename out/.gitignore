@@ -1,0 +1,4 @@
+# Everything in out/ is a generated artifact (svg/html/pdf/png), reproducible
+# via `python3 build.py`. Ignore it all, but keep this directory in the repo.
+*
+!.gitignore
