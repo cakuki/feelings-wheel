@@ -14,16 +14,20 @@ python3 gen_wheel.py     # -> duygu-carki.svg
 python3 build_html.py     # -> duygu-carki.html  (embeds the SVG, adds page 2)
 ```
 
-Then produce a print-ready A4 PDF (and an optional preview image):
+Then produce a print-ready A4 PDF and a preview image — **both via Chrome**.
+The core labels use SVG `<textPath>` (curved text), which `librsvg`/`rsvg-convert`
+does **not** render, so don't use it for previews; Chrome (the PDF engine) does.
 
 ```sh
-# PDF via headless Chrome
-"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
-  --headless --disable-gpu --no-pdf-header-footer \
+CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+
+# print-ready A4 PDF
+"$CHROME" --headless --disable-gpu --no-pdf-header-footer \
   --print-to-pdf="duygu-carki.pdf" "file://$PWD/duygu-carki.html"
 
-# PNG preview of just the wheel (needs librsvg: `brew install librsvg`)
-rsvg-convert -w 900 duygu-carki.svg -o wheel-preview.png
+# PNG preview of the wheel
+"$CHROME" --headless --disable-gpu --window-size=700,720 \
+  --screenshot="wheel-preview.png" "file://$PWD/duygu-carki.svg"
 ```
 
 ## Checking that labels fit (the feedback loop)
@@ -36,11 +40,14 @@ that cross out of the ring (or circle) it belongs to.
 2. In the DevTools console, paste `fit_check.js` and run `fitCheck()`
    (or run the same function via the Chrome DevTools MCP `evaluate_script`).
 3. `{ ok: true, fails: [] }` means every label fits. Otherwise `fails` lists each
-   offender with how far it pokes inward (`innerGap < 0`) or spills outward
-   (`outerGap < 0`) — shrink that label's font in `gen_wheel.py` and re-run.
+   offender: curved core labels report `padEach` (clear space to each divider;
+   must be ≥ `CORE_PAD`), outer labels report `innerGap`/`outerGap`, and the center
+   prompt reports `slack`. Adjust the relevant size in `gen_wheel.py` and re-run.
 
-Long core names (e.g. *Korkmuş*) can't fit the narrow ring at full size, so
-`gen_wheel.py` auto-shrinks core labels longer than 6 characters.
+The six core labels are **curved along the arc** (`<textPath>`) at one uniform
+size, `CORE_FONT`, picked so the longest word (*Korkmuş*) fills its wedge while
+keeping `CORE_PAD` px of clear space from the dividers. Outer labels stay radial
+and shrink by length.
 
 ## Customizing
 

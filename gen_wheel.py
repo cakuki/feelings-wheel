@@ -11,6 +11,13 @@ CX, CY = 350, 350
 R_CENTER = 90      # inner face circle
 R_CORE = 178       # core ring outer edge
 R_OUTER = 300      # outer ring outer edge
+R_CORE_TEXT = (R_CENTER + R_CORE) / 2  # baseline radius for curved core labels
+
+# Uniform font size for the curved core labels. Chosen so the longest word
+# ("Korkmuş") fills its wedge arc while leaving padding to the white dividers.
+# Verified by fit_check.js (run the loop after changing wedge geometry).
+CORE_FONT = 21
+CORE_PAD = 16      # min px of clear space between a core label and each divider
 
 # (core name, base color, [4 nuanced feelings])
 DATA = [
@@ -45,8 +52,19 @@ def arc_segment(r_in, r_out, a0, a1):
             f"L {x1i:.2f} {y1i:.2f} "
             f"A {r_in:.2f} {r_in:.2f} 0 {large} 0 {x0i:.2f} {y0i:.2f} Z")
 
+def baseline_arc(r, a0, a1, flip):
+    """An open arc to set curved text on. On the bottom half (flip) the arc is
+    drawn in reverse so glyphs stay upright instead of hanging upside down."""
+    start, end, sweep = (a1, a0, 0) if flip else (a0, a1, 1)
+    x0, y0 = pol(CX, CY, r, start)
+    x1, y1 = pol(CX, CY, r, end)
+    return f"M {x0:.2f} {y0:.2f} A {r:.2f} {r:.2f} 0 0 {sweep} {x1:.2f} {y1:.2f}"
+
 svg = []
-svg.append(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 720" font-family="Nunito, Verdana, sans-serif">')
+svg.append('<svg xmlns="http://www.w3.org/2000/svg" '
+           'xmlns:xlink="http://www.w3.org/1999/xlink" '
+           'viewBox="0 0 700 720" font-family="Nunito, Verdana, sans-serif">')
+defs = ['<defs>']  # baseline paths for the curved core labels live here
 svg.append('<rect x="0" y="0" width="700" height="720" fill="#FFFDF7"/>')
 
 n = len(DATA)
@@ -79,18 +97,17 @@ for i, (core, color, feelings) in enumerate(DATA):
                    f'dominant-baseline="central" '
                    f'transform="rotate({rot:.2f} {tx:.2f} {ty:.2f})">{feel}</text>')
 
-    # core ring
+    # core ring (label curved along the arc, baseline follows the circle)
     svg.append(f'<path d="{arc_segment(R_CENTER, R_CORE, a_start, a_end)}" '
                f'fill="{color}" stroke="#FFFDF7" stroke-width="3"/>')
-    tx, ty = pol(CX, CY, (R_CENTER + R_CORE) / 2, a_mid)
-    rot = a_mid - 90
-    if (a_mid % 360) > 180:
-        rot += 180
-    fs_core = 22 if len(core) <= 6 else 16  # shrink long names (e.g. Korkmuş) to fit the ring
-    svg.append(f'<text x="{tx:.2f}" y="{ty:.2f}" font-size="{fs_core}" '
-               f'font-weight="800" fill="#ffffff" text-anchor="middle" '
-               f'dominant-baseline="central" '
-               f'transform="rotate({rot:.2f} {tx:.2f} {ty:.2f})">{core}</text>')
+    flip = 90 < (a_mid % 360) < 270  # bottom half -> reverse arc so text is upright
+    pid = f"corepath{i}"
+    defs.append(f'<path id="{pid}" fill="none" '
+                f'd="{baseline_arc(R_CORE_TEXT, a_start, a_end, flip)}"/>')
+    svg.append(f'<text font-size="{CORE_FONT}" font-weight="800" fill="#ffffff" '
+               f'text-anchor="middle" dominant-baseline="central">'
+               f'<textPath href="#{pid}" xlink:href="#{pid}" startOffset="50%">'
+               f'{core}</textPath></text>')
 
 # center circle + prompt (sized to stay inside the circle)
 svg.append(f'<circle cx="{CX}" cy="{CY}" r="{R_CENTER}" fill="#FFFDF7" stroke="#cfc6b0" stroke-width="2"/>')
@@ -99,6 +116,9 @@ svg.append(f'<text x="{CX}" y="{CY+1}" font-size="17" font-weight="800" fill="#4
 svg.append(f'<text x="{CX}" y="{CY+25}" font-size="15" font-weight="800" fill="#444" text-anchor="middle">hissediyorsun?</text>')
 
 svg.append('</svg>')
+
+defs.append('</defs>')
+svg.insert(1, "\n".join(defs))  # place <defs> right after the opening <svg>
 
 svg_str = "\n".join(svg)
 with open(os.path.join(HERE, "duygu-carki.svg"), "w") as f:

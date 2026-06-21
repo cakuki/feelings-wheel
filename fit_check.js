@@ -11,12 +11,33 @@
 //   • Chrome DevTools MCP: evaluate_script with this function.
 //
 // Geometry must match gen_wheel.py:
-const FIT = { CX: 350, CY: 350, R_CENTER: 90, R_CORE: 178, R_OUTER: 300, MARGIN: 2 };
+const FIT = {
+  CX: 350, CY: 350, R_CENTER: 90, R_CORE: 178, R_OUTER: 300, MARGIN: 2,
+  N: 6,            // wedge count -> 60deg core wedges
+  R_CORE_TEXT: (90 + 178) / 2,
+  CORE_PAD: 16,    // required clear space from each divider for curved core labels
+};
 
 function fitCheck() {
-  const { CX, CY, R_CENTER, R_CORE, R_OUTER, MARGIN } = FIT;
+  const { CX, CY, R_CENTER, R_CORE, R_OUTER, MARGIN, N, R_CORE_TEXT, CORE_PAD } = FIT;
   const out = [];
+
+  // Curved core labels: text runs ALONG the arc; check arc length vs wedge arc.
+  const wedgeArc = R_CORE_TEXT * (2 * Math.PI / N);
+  for (const tp of document.querySelectorAll('svg textPath')) {
+    const len = tp.getComputedTextLength();
+    const padEach = (wedgeArc - len) / 2;
+    out.push({
+      text: tp.textContent, kind: 'core-arc',
+      fontSize: parseFloat(tp.closest('text').getAttribute('font-size')),
+      padEach: +padEach.toFixed(1),       // clear space to each divider
+      fits: padEach >= CORE_PAD,
+    });
+  }
+
+  // Radial outer labels and the horizontal center prompt.
   for (const t of document.querySelectorAll('svg text')) {
+    if (t.querySelector('textPath')) continue; // handled above
     const x = parseFloat(t.getAttribute('x'));
     const y = parseFloat(t.getAttribute('y'));
     const bb = t.getBBox();
