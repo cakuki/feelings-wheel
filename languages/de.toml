@@ -1,0 +1,43 @@
+# Deutsch (de) — Feelings Wheel translation.
+# To add a language, copy this file to <code>.toml and translate the
+# values. Keep the keys and the order of the 6 emotions unchanged.
+
+name = "Deutsch"
+core_font = 17  # curved core-label size; lower it if a long word overflows
+
+title = "Gefühlsrad 🎡"
+subtitle = "Welches Gefühl steckt heute in dir? Finde es im Rad und zeig darauf."
+center = ["Wie fühlst", "du dich", "heute?"]  # 3 short lines in the hub
+howto_title = "So benutzt du es"
+howto_body = "Wähle in der Mitte das Grundgefühl, das am besten passt (z. B. <b>Glücklich</b>). Suche dann im äußeren Ring derselben Farbe ein genaueres Gefühl (z. B. <b>Dankbar</b> oder <b>Aufgeregt</b>). Sprich das Gefühl laut aus und redet zusammen darüber: „Wann habe ich das gefühlt?“ Es gibt kein richtiges oder falsches Gefühl — alle sind wichtig. 💛"
+cal_title = "Mein Gefühlskalender 📅"
+cal_subtitle = "Male jeden Tag den Kreis in der Farbe deines stärksten Gefühls an."
+month_label = "Monat"
+cal_note = "Frag am Ende des Tages: „Welches Gefühl hattest du heute am meisten?“ und male es in der Farbe dieses Grundgefühls aus. Schaut am Wochenende zusammen auf das Rad und redet darüber."
+
+# The 6 core emotions in canonical order (colors are shared, set in code):
+# Happy, Surprised, Angry, Scared, Sad, Calm
+
+[[emotion]]
+core = "Glücklich"
+feelings = ["Fröhlich", "Aufgeregt", "Stolz", "Dankbar"]
+
+[[emotion]]
+core = "Überrascht"
+feelings = ["Neugierig", "Erstaunt", "Verwirrt", "Schockiert"]
+
+[[emotion]]
+core = "Wütend"
+feelings = ["Genervt", "Zornig", "Eifersüchtig", "Frustriert"]
+
+[[emotion]]
+core = "Ängstlich"
+feelings = ["Besorgt", "Schüchtern", "Nervös", "Panisch"]
+
+[[emotion]]
+core = "Traurig"
+feelings = ["Einsam", "Enttäuscht", "Hilflos", "Sehnsüchtig"]
+
+[[emotion]]
+core = "Ruhig"
+feelings = ["Friedlich", "Entspannt", "Geborgen", "Zufrieden"]

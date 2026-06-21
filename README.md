@@ -68,7 +68,8 @@ mkdir -p ~/.fonts && curl -fsSL -o ~/.fonts/Nunito.ttf \
 
 | File | Role |
 |------|------|
-| `languages.py` | all per-language content (emotions, feelings, UI text) + shared color palette |
+| `languages/<code>.toml` | one translation per file — emotions, feelings, and UI text (easy to add/review) |
+| `languages.py` | loads the TOML files + holds the shared color palette |
 | `gen_wheel.py` | draws the wheel SVG (arc geometry, curved labels) |
 | `build_html.py` | wraps the SVG in a print-ready A4 HTML + the monthly tracker |
 | `build.py` | orchestrates SVG → HTML → PDF/preview, and packages release bundles |

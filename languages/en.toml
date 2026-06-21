@@ -1,0 +1,43 @@
+# English (en) — Feelings Wheel translation.
+# To add a language, copy this file to <code>.toml and translate the
+# values. Keep the keys and the order of the 6 emotions unchanged.
+
+name = "English"
+core_font = 20  # curved core-label size; lower it if a long word overflows
+
+title = "Feelings Wheel 🎡"
+subtitle = "Which feeling is inside you today? Find it on the wheel and point to it."
+center = ["How do", "you feel", "today?"]  # 3 short lines in the hub
+howto_title = "How to use it"
+howto_body = "Pick the core emotion in the middle that feels closest (e.g. <b>Happy</b>). Then find a more specific feeling in that color's outer ring (e.g. <b>Grateful</b> or <b>Excited</b>). Say the feeling out loud and talk together about “When did I feel this?” There is no right or wrong feeling — they all matter. 💛"
+cal_title = "My Feelings Calendar 📅"
+cal_subtitle = "Each day, color the circle with the feeling you had the most."
+month_label = "Month"
+cal_note = "At the end of the day, ask “Which feeling did you have most today?” and color it with that core emotion's color. At the weekend, look at the wheel together and talk about it."
+
+# The 6 core emotions in canonical order (colors are shared, set in code):
+# Happy, Surprised, Angry, Scared, Sad, Calm
+
+[[emotion]]
+core = "Happy"
+feelings = ["Cheerful", "Excited", "Proud", "Grateful"]
+
+[[emotion]]
+core = "Surprised"
+feelings = ["Curious", "Amazed", "Confused", "Shocked"]
+
+[[emotion]]
+core = "Angry"
+feelings = ["Annoyed", "Furious", "Jealous", "Frustrated"]
+
+[[emotion]]
+core = "Scared"
+feelings = ["Worried", "Shy", "Nervous", "Panicked"]
+
+[[emotion]]
+core = "Sad"
+feelings = ["Lonely", "Disappointed", "Helpless", "Wistful"]
+
+[[emotion]]
+core = "Calm"
+feelings = ["Peaceful", "Relaxed", "Safe", "Content"]

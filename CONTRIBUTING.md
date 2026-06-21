@@ -3,16 +3,20 @@
 Thanks for helping more kids name their feelings! 💛
 
 The most valuable contribution is **a new language**. You don't need to touch
-the geometry or layout code — everything translatable lives in `languages.py`.
+any code — every translation is a single [TOML](https://toml.io) file in
+[`languages/`](languages/).
 
 ## Add a language
 
-1. Copy an existing entry in `languages.py` (e.g. `"en"`) and translate it.
-   Keep the 6 core emotions in the canonical order (Happy, Surprised, Angry,
-   Scared, Sad, Calm) so they line up with the shared `PALETTE`.
+1. Copy an existing file in `languages/` (e.g. `languages/en.toml`) to
+   `languages/<code>.toml` (use the [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes),
+   e.g. `it`, `pt`, `nl`) and translate the values. Keep the keys, and keep the
+   6 emotions in the canonical order (Happy, Surprised, Angry, Scared, Sad, Calm)
+   so they line up with the shared colors.
    - Prefer short, child-friendly **single words** for the 6 core emotions —
      they're curved inside a ring and long words have to shrink.
    - Give each core emotion 4 nuanced feelings for the outer ring.
+   - The comments in the file explain each field.
 2. Build it:
    ```sh
    python3 build.py xx           # your language code

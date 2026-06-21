@@ -1,0 +1,43 @@
+# Français (fr) — Feelings Wheel translation.
+# To add a language, copy this file to <code>.toml and translate the
+# values. Keep the keys and the order of the 6 emotions unchanged.
+
+name = "Français"
+core_font = 21  # curved core-label size; lower it if a long word overflows
+
+title = "Roue des émotions 🎡"
+subtitle = "Quelle émotion ressens-tu aujourd’hui ? Trouve-la sur la roue et montre-la."
+center = ["Comment", "te sens-tu", "aujourd’hui ?"]  # 3 short lines in the hub
+howto_title = "Comment l’utiliser"
+howto_body = "Choisis au centre l’émotion principale la plus proche (par ex. <b>Heureux</b>). Puis trouve une émotion plus précise dans l’anneau extérieur de la même couleur (par ex. <b>Reconnaissant</b> ou <b>Excité</b>). Dis l’émotion à voix haute et parlez ensemble : « Quand ai-je ressenti cela ? » Il n’y a pas de bonne ou de mauvaise émotion — elles comptent toutes. 💛"
+cal_title = "Mon calendrier des émotions 📅"
+cal_subtitle = "Chaque jour, colorie le cercle avec l’émotion ressentie le plus."
+month_label = "Mois"
+cal_note = "À la fin de la journée, demande : « Quelle émotion as-tu ressentie le plus aujourd’hui ? » et colorie-la avec la couleur de cette émotion principale. Le week-end, regardez la roue ensemble et discutez-en."
+
+# The 6 core emotions in canonical order (colors are shared, set in code):
+# Happy, Surprised, Angry, Scared, Sad, Calm
+
+[[emotion]]
+core = "Heureux"
+feelings = ["Joyeux", "Excité", "Fier", "Reconnaissant"]
+
+[[emotion]]
+core = "Surpris"
+feelings = ["Curieux", "Émerveillé", "Confus", "Choqué"]
+
+[[emotion]]
+core = "Fâché"
+feelings = ["Agacé", "Furieux", "Jaloux", "Frustré"]
+
+[[emotion]]
+core = "Effrayé"
+feelings = ["Inquiet", "Timide", "Nerveux", "Paniqué"]
+
+[[emotion]]
+core = "Triste"
+feelings = ["Seul", "Déçu", "Impuissant", "Nostalgique"]
+
+[[emotion]]
+core = "Calme"
+feelings = ["Paisible", "Détendu", "Rassuré", "Satisfait"]

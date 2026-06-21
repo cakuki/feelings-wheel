@@ -1,174 +1,36 @@
 #!/usr/bin/env python3
-"""Language content for the feelings wheel. Add a language by adding an entry to
-LANGUAGES; the geometry/layout code stays language-agnostic.
+"""Load language content from the per-language TOML files in languages/.
 
-The 6 core emotions share one PALETTE (index aligns with each language's `cores`
-order). `core_font` is the uniform curved-label size for that language — sized so
-its longest core word fills the wedge; verify with fit_check.js after editing.
+Each languages/<code>.toml holds one translation (see any existing file for the
+shape). The 6 core emotions share one PALETTE (index aligns with each file's
+emotion order). To add a language, drop in a new TOML file — no code changes.
 """
+import os
+import tomllib
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+LANG_DIR = os.path.join(HERE, "languages")
 
 # Shared, in canonical order: Happy, Surprised, Angry, Scared, Sad, Calm.
 PALETTE = ["#F4C430", "#E8833A", "#DB504A", "#9B6FB0", "#4F8FCB", "#56B27E"]
 
-LANGUAGES = {
-    "tr": {
-        "name": "Türkçe",
-        "core_font": 21,
-        "cores": [
-            ("Mutlu",   ["Neşeli", "Heyecanlı", "Gururlu", "Minnettar"]),
-            ("Şaşkın",  ["Meraklı", "Hayran", "Kafası karışık", "Şok"]),
-            ("Kızgın",  ["Sinirli", "Öfkeli", "Kıskanç", "Engellenmiş"]),
-            ("Korkmuş", ["Endişeli", "Utangaç", "Tedirgin", "Panik"]),
-            ("Üzgün",   ["Yalnız", "Hayal kırıklığı", "Çaresiz", "Özlemli"]),
-            ("Sakin",   ["Huzurlu", "Rahat", "Güvende", "Memnun"]),
-        ],
-        "title": "Duygu Çarkı 🎡",
-        "subtitle": "Bugün içinden hangi duygu geçiyor? Çarkta bul ve göster.",
-        "center": ["Bugün", "nasıl", "hissediyorsun?"],
-        "howto_title": "Nasıl kullanılır?",
-        "howto_body": (
-            "Ortadaki 6 ana duygudan sana en yakın olanı seç (örneğin "
-            "<b>Mutlu</b>). Sonra o rengin dış halkasındaki daha ince "
-            "duygulardan birini bul (örneğin <b>Minnettar</b> ya da "
-            "<b>Heyecanlı</b>). Duygunun adını yüksek sesle söyle ve "
-            "“Bu duyguyu ne zaman hissettim?” diye birlikte konuşun. "
-            "Doğru ya da yanlış duygu yoktur — hepsi değerlidir. 💛"
-        ),
-        "cal_title": "Duygu Takvimim 📅",
-        "cal_subtitle": "Her gün kendini nasıl hissettiysen o renkle daireyi boya.",
-        "month_label": "Ay",
-        "cal_note": (
-            "Günün sonunda “Bugün en çok hangi duyguyu yaşadın?” diye sor ve o "
-            "ana duygunun rengiyle boya. Hafta sonunda birlikte çarka bakıp konuşun."
-        ),
-    },
-    "en": {
-        "name": "English",
-        "core_font": 20,
-        "cores": [
-            ("Happy",     ["Cheerful", "Excited", "Proud", "Grateful"]),
-            ("Surprised", ["Curious", "Amazed", "Confused", "Shocked"]),
-            ("Angry",     ["Annoyed", "Furious", "Jealous", "Frustrated"]),
-            ("Scared",    ["Worried", "Shy", "Nervous", "Panicked"]),
-            ("Sad",       ["Lonely", "Disappointed", "Helpless", "Wistful"]),
-            ("Calm",      ["Peaceful", "Relaxed", "Safe", "Content"]),
-        ],
-        "title": "Feelings Wheel 🎡",
-        "subtitle": "Which feeling is inside you today? Find it on the wheel and point to it.",
-        "center": ["How do", "you feel", "today?"],
-        "howto_title": "How to use it",
-        "howto_body": (
-            "Pick the core emotion in the middle that feels closest (e.g. "
-            "<b>Happy</b>). Then find a more specific feeling in that color's "
-            "outer ring (e.g. <b>Grateful</b> or <b>Excited</b>). Say the "
-            "feeling out loud and talk together about “When did I feel this?” "
-            "There is no right or wrong feeling — they all matter. 💛"
-        ),
-        "cal_title": "My Feelings Calendar 📅",
-        "cal_subtitle": "Each day, color the circle with the feeling you had the most.",
-        "month_label": "Month",
-        "cal_note": (
-            "At the end of the day, ask “Which feeling did you have most today?” "
-            "and color it with that core emotion's color. At the weekend, look at "
-            "the wheel together and talk about it."
-        ),
-    },
-    "de": {
-        "name": "Deutsch",
-        "core_font": 17,
-        "cores": [
-            ("Glücklich",  ["Fröhlich", "Aufgeregt", "Stolz", "Dankbar"]),
-            ("Überrascht", ["Neugierig", "Erstaunt", "Verwirrt", "Schockiert"]),
-            ("Wütend",     ["Genervt", "Zornig", "Eifersüchtig", "Frustriert"]),
-            ("Ängstlich",  ["Besorgt", "Schüchtern", "Nervös", "Panisch"]),
-            ("Traurig",    ["Einsam", "Enttäuscht", "Hilflos", "Sehnsüchtig"]),
-            ("Ruhig",      ["Friedlich", "Entspannt", "Geborgen", "Zufrieden"]),
-        ],
-        "title": "Gefühlsrad 🎡",
-        "subtitle": "Welches Gefühl steckt heute in dir? Finde es im Rad und zeig darauf.",
-        "center": ["Wie fühlst", "du dich", "heute?"],
-        "howto_title": "So benutzt du es",
-        "howto_body": (
-            "Wähle in der Mitte das Grundgefühl, das am besten passt (z. B. "
-            "<b>Glücklich</b>). Suche dann im äußeren Ring derselben Farbe ein "
-            "genaueres Gefühl (z. B. <b>Dankbar</b> oder <b>Aufgeregt</b>). "
-            "Sprich das Gefühl laut aus und redet zusammen darüber: „Wann habe "
-            "ich das gefühlt?“ Es gibt kein richtiges oder falsches Gefühl — "
-            "alle sind wichtig. 💛"
-        ),
-        "cal_title": "Mein Gefühlskalender 📅",
-        "cal_subtitle": "Male jeden Tag den Kreis in der Farbe deines stärksten Gefühls an.",
-        "month_label": "Monat",
-        "cal_note": (
-            "Frag am Ende des Tages: „Welches Gefühl hattest du heute am "
-            "meisten?“ und male es in der Farbe dieses Grundgefühls aus. Schaut "
-            "am Wochenende zusammen auf das Rad und redet darüber."
-        ),
-    },
-    "fr": {
-        "name": "Français",
-        "core_font": 21,
-        "cores": [
-            ("Heureux",  ["Joyeux", "Excité", "Fier", "Reconnaissant"]),
-            ("Surpris",  ["Curieux", "Émerveillé", "Confus", "Choqué"]),
-            ("Fâché",    ["Agacé", "Furieux", "Jaloux", "Frustré"]),
-            ("Effrayé",  ["Inquiet", "Timide", "Nerveux", "Paniqué"]),
-            ("Triste",   ["Seul", "Déçu", "Impuissant", "Nostalgique"]),
-            ("Calme",    ["Paisible", "Détendu", "Rassuré", "Satisfait"]),
-        ],
-        "title": "Roue des émotions 🎡",
-        "subtitle": "Quelle émotion ressens-tu aujourd’hui ? Trouve-la sur la roue et montre-la.",
-        "center": ["Comment", "te sens-tu", "aujourd’hui ?"],
-        "howto_title": "Comment l’utiliser",
-        "howto_body": (
-            "Choisis au centre l’émotion principale la plus proche (par ex. "
-            "<b>Heureux</b>). Puis trouve une émotion plus précise dans l’anneau "
-            "extérieur de la même couleur (par ex. <b>Reconnaissant</b> ou "
-            "<b>Excité</b>). Dis l’émotion à voix haute et parlez ensemble : "
-            "« Quand ai-je ressenti cela ? » Il n’y a pas de bonne ou de mauvaise "
-            "émotion — elles comptent toutes. 💛"
-        ),
-        "cal_title": "Mon calendrier des émotions 📅",
-        "cal_subtitle": "Chaque jour, colorie le cercle avec l’émotion ressentie le plus.",
-        "month_label": "Mois",
-        "cal_note": (
-            "À la fin de la journée, demande : « Quelle émotion as-tu ressentie "
-            "le plus aujourd’hui ? » et colorie-la avec la couleur de cette "
-            "émotion principale. Le week-end, regardez la roue ensemble et discutez-en."
-        ),
-    },
-    "es": {
-        "name": "Español",
-        "core_font": 15,
-        "cores": [
-            ("Feliz",       ["Alegre", "Emocionado", "Orgulloso", "Agradecido"]),
-            ("Sorprendido", ["Curioso", "Asombrado", "Confundido", "Impactado"]),
-            ("Enfadado",    ["Molesto", "Furioso", "Celoso", "Frustrado"]),
-            ("Asustado",    ["Preocupado", "Tímido", "Nervioso", "Aterrado"]),
-            ("Triste",      ["Solo", "Decepcionado", "Indefenso", "Nostálgico"]),
-            ("Tranquilo",   ["Sereno", "Relajado", "Seguro", "Contento"]),
-        ],
-        "title": "Rueda de emociones 🎡",
-        "subtitle": "¿Qué emoción sientes hoy? Búscala en la rueda y señálala.",
-        "center": ["¿Cómo te", "sientes", "hoy?"],
-        "howto_title": "Cómo usarla",
-        "howto_body": (
-            "Elige en el centro la emoción principal más cercana (p. ej. "
-            "<b>Feliz</b>). Luego busca una emoción más concreta en el anillo "
-            "exterior del mismo color (p. ej. <b>Agradecido</b> o "
-            "<b>Emocionado</b>). Di la emoción en voz alta y hablad juntos: "
-            "«¿Cuándo sentí esto?» No hay emociones buenas ni malas — todas importan. 💛"
-        ),
-        "cal_title": "Mi calendario de emociones 📅",
-        "cal_subtitle": "Cada día, colorea el círculo con la emoción que más sentiste.",
-        "month_label": "Mes",
-        "cal_note": (
-            "Al final del día, pregunta: «¿Qué emoción sentiste más hoy?» y "
-            "coloréala con el color de esa emoción principal. El fin de semana, "
-            "mirad juntos la rueda y comentadla."
-        ),
-    },
-}
+
+def _load():
+    langs = {}
+    for fn in sorted(os.listdir(LANG_DIR)):
+        if not fn.endswith(".toml"):
+            continue
+        code = fn[:-len(".toml")]
+        with open(os.path.join(LANG_DIR, fn), "rb") as f:
+            data = tomllib.load(f)
+        # Normalize the [[emotion]] tables into the (name, [feelings]) shape the
+        # rest of the code expects.
+        data["cores"] = [(e["core"], e["feelings"]) for e in data["emotion"]]
+        langs[code] = data
+    return langs
+
+
+LANGUAGES = _load()
 
 
 def core_data(lang_code):

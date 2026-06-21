@@ -1,0 +1,43 @@
+# Türkçe (tr) — Feelings Wheel translation.
+# To add a language, copy this file to <code>.toml and translate the
+# values. Keep the keys and the order of the 6 emotions unchanged.
+
+name = "Türkçe"
+core_font = 21  # curved core-label size; lower it if a long word overflows
+
+title = "Duygu Çarkı 🎡"
+subtitle = "Bugün içinden hangi duygu geçiyor? Çarkta bul ve göster."
+center = ["Bugün", "nasıl", "hissediyorsun?"]  # 3 short lines in the hub
+howto_title = "Nasıl kullanılır?"
+howto_body = "Ortadaki 6 ana duygudan sana en yakın olanı seç (örneğin <b>Mutlu</b>). Sonra o rengin dış halkasındaki daha ince duygulardan birini bul (örneğin <b>Minnettar</b> ya da <b>Heyecanlı</b>). Duygunun adını yüksek sesle söyle ve “Bu duyguyu ne zaman hissettim?” diye birlikte konuşun. Doğru ya da yanlış duygu yoktur — hepsi değerlidir. 💛"
+cal_title = "Duygu Takvimim 📅"
+cal_subtitle = "Her gün kendini nasıl hissettiysen o renkle daireyi boya."
+month_label = "Ay"
+cal_note = "Günün sonunda “Bugün en çok hangi duyguyu yaşadın?” diye sor ve o ana duygunun rengiyle boya. Hafta sonunda birlikte çarka bakıp konuşun."
+
+# The 6 core emotions in canonical order (colors are shared, set in code):
+# Happy, Surprised, Angry, Scared, Sad, Calm
+
+[[emotion]]
+core = "Mutlu"
+feelings = ["Neşeli", "Heyecanlı", "Gururlu", "Minnettar"]
+
+[[emotion]]
+core = "Şaşkın"
+feelings = ["Meraklı", "Hayran", "Kafası karışık", "Şok"]
+
+[[emotion]]
+core = "Kızgın"
+feelings = ["Sinirli", "Öfkeli", "Kıskanç", "Engellenmiş"]
+
+[[emotion]]
+core = "Korkmuş"
+feelings = ["Endişeli", "Utangaç", "Tedirgin", "Panik"]
+
+[[emotion]]
+core = "Üzgün"
+feelings = ["Yalnız", "Hayal kırıklığı", "Çaresiz", "Özlemli"]
+
+[[emotion]]
+core = "Sakin"
+feelings = ["Huzurlu", "Rahat", "Güvende", "Memnun"]
