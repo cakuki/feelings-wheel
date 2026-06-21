@@ -1,3 +1,5 @@
-# Generated artifacts live in out/ and are ignored there (see out/.gitignore).
+# Generated artifacts: out/ contents are ignored via out/.gitignore; dist/ holds
+# release bundles. Both are reproducible via `python3 build.py`.
+dist/
 __pycache__/
 .DS_Store

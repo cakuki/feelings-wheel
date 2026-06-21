@@ -105,6 +105,69 @@ LANGUAGES = {
             "am Wochenende zusammen auf das Rad und redet darüber."
         ),
     },
+    "fr": {
+        "name": "Français",
+        "core_font": 21,
+        "cores": [
+            ("Heureux",  ["Joyeux", "Excité", "Fier", "Reconnaissant"]),
+            ("Surpris",  ["Curieux", "Émerveillé", "Confus", "Choqué"]),
+            ("Fâché",    ["Agacé", "Furieux", "Jaloux", "Frustré"]),
+            ("Effrayé",  ["Inquiet", "Timide", "Nerveux", "Paniqué"]),
+            ("Triste",   ["Seul", "Déçu", "Impuissant", "Nostalgique"]),
+            ("Calme",    ["Paisible", "Détendu", "Rassuré", "Satisfait"]),
+        ],
+        "title": "Roue des émotions 🎡",
+        "subtitle": "Quelle émotion ressens-tu aujourd’hui ? Trouve-la sur la roue et montre-la.",
+        "center": ["Comment", "te sens-tu", "aujourd’hui ?"],
+        "howto_title": "Comment l’utiliser",
+        "howto_body": (
+            "Choisis au centre l’émotion principale la plus proche (par ex. "
+            "<b>Heureux</b>). Puis trouve une émotion plus précise dans l’anneau "
+            "extérieur de la même couleur (par ex. <b>Reconnaissant</b> ou "
+            "<b>Excité</b>). Dis l’émotion à voix haute et parlez ensemble : "
+            "« Quand ai-je ressenti cela ? » Il n’y a pas de bonne ou de mauvaise "
+            "émotion — elles comptent toutes. 💛"
+        ),
+        "cal_title": "Mon calendrier des émotions 📅",
+        "cal_subtitle": "Chaque jour, colorie le cercle avec l’émotion ressentie le plus.",
+        "month_label": "Mois",
+        "cal_note": (
+            "À la fin de la journée, demande : « Quelle émotion as-tu ressentie "
+            "le plus aujourd’hui ? » et colorie-la avec la couleur de cette "
+            "émotion principale. Le week-end, regardez la roue ensemble et discutez-en."
+        ),
+    },
+    "es": {
+        "name": "Español",
+        "core_font": 15,
+        "cores": [
+            ("Feliz",       ["Alegre", "Emocionado", "Orgulloso", "Agradecido"]),
+            ("Sorprendido", ["Curioso", "Asombrado", "Confundido", "Impactado"]),
+            ("Enfadado",    ["Molesto", "Furioso", "Celoso", "Frustrado"]),
+            ("Asustado",    ["Preocupado", "Tímido", "Nervioso", "Aterrado"]),
+            ("Triste",      ["Solo", "Decepcionado", "Indefenso", "Nostálgico"]),
+            ("Tranquilo",   ["Sereno", "Relajado", "Seguro", "Contento"]),
+        ],
+        "title": "Rueda de emociones 🎡",
+        "subtitle": "¿Qué emoción sientes hoy? Búscala en la rueda y señálala.",
+        "center": ["¿Cómo te", "sientes", "hoy?"],
+        "howto_title": "Cómo usarla",
+        "howto_body": (
+            "Elige en el centro la emoción principal más cercana (p. ej. "
+            "<b>Feliz</b>). Luego busca una emoción más concreta en el anillo "
+            "exterior del mismo color (p. ej. <b>Agradecido</b> o "
+            "<b>Emocionado</b>). Di la emoción en voz alta y hablad juntos: "
+            "«¿Cuándo sentí esto?» No hay emociones buenas ni malas — todas importan. 💛"
+        ),
+        "cal_title": "Mi calendario de emociones 📅",
+        "cal_subtitle": "Cada día, colorea el círculo con la emoción que más sentiste.",
+        "month_label": "Mes",
+        "cal_note": (
+            "Al final del día, pregunta: «¿Qué emoción sentiste más hoy?» y "
+            "coloréala con el color de esa emoción principal. El fin de semana, "
+            "mirad juntos la rueda y comentadla."
+        ),
+    },
 }
 
 

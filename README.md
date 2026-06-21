@@ -1,75 +1,103 @@
-# Feelings Wheel 🎡 (Duygu Çarkı / Gefühlsrad)
+# Feelings Wheel 🎡
 
-A printable, **multi-language** feeling wheel and matching monthly emotion
-tracker, tuned for a 9–12 year old: 6 core emotions, each surrounded by 4 nuanced
-feelings to grow emotional vocabulary. Ships with **English, German, and Turkish**.
+A free, printable **feelings wheel** and matching **monthly emotion tracker**
+to help kids name what they feel — in their own language.
 
-## Build
+Six core emotions in the middle, each surrounded by four more nuanced feelings,
+so a child can move from "happy" to *grateful*, or "angry" to *frustrated*. Print
+it, put it on the fridge, and use it together.
 
-Everything is generated into `out/<lang>/` and is reproducible — only the
-generators are tracked in git (see Layout). Build with one command:
+<p align="center">
+  <img src="assets/preview-en.png" alt="English feelings wheel" width="48%">
+  <img src="assets/preview-tr.png" alt="Turkish feelings wheel" width="48%">
+</p>
+
+## ⬇️ Download &amp; print
+
+Grab your language from the [**latest release**](../../releases/latest):
+
+- `feelings-wheel-<lang>.pdf` — ready-to-print A4 (2 pages: wheel + tracker)
+- `feelings-wheel-<lang>.zip` — the same, plus SVG, preview image, and HTML
+
+Open the PDF and print at 100% / "Actual size" on A4. That's it — no account,
+no paywall, free forever.
+
+**Available languages:** 🇬🇧 English · 🇩🇪 Deutsch · 🇪🇸 Español · 🇫🇷 Français · 🇹🇷 Türkçe
+
+Want yours? [Adding a language](CONTRIBUTING.md) is a small, welcome PR.
+
+## How to use it with your child
+
+1. Find the core emotion in the middle that feels closest right now.
+2. Move outward to a more specific feeling in the same color.
+3. Say it out loud and talk about *when* you felt it. There's no wrong feeling.
+4. On the second page, color one circle a day to see the week's mood at a glance.
+
+## Build from source
+
+Pure Python standard library — no dependencies. You only need **Python 3** and
+**Google Chrome** (used to render the PDF and preview).
 
 ```sh
-python3 build.py            # all languages
-python3 build.py en de       # only these
-python3 build.py --no-pdf    # SVG + HTML only (skip Chrome PDF/preview)
+python3 build.py                 # all languages -> out/<lang>/
+python3 build.py en de            # only these
+python3 build.py --package        # also write release bundles to dist/
+python3 build.py --no-pdf         # SVG + HTML only (skip Chrome)
 ```
 
-Each language produces `out/<lang>/`:
-`wheel.svg`, `index.html`, `wheel.pdf` (print-ready A4), `wheel-preview.png`.
+Each language produces `out/<lang>/`: `wheel.svg`, `index.html` (print this from a
+browser if you don't want the PDF step), `wheel.pdf`, and `wheel-preview.png`.
 
-The PDF and preview are rendered with **Chrome** (auto-detected). The core labels
-use SVG `<textPath>` (curved text), which `librsvg`/`rsvg-convert` does **not**
-render — so previews go through Chrome too, the same engine that makes the PDF.
+For pixel-identical output everywhere, the project pins the open-source
+[**Nunito**](https://fonts.google.com/specimen/Nunito) font. Install it once so
+your local build matches the released PDFs (CI does the same automatically):
 
-To print: open `out/<lang>/index.html` in a browser and Print → Save as PDF, or
-just use the generated `wheel.pdf`.
+```sh
+# macOS
+curl -fsSL -o ~/Library/Fonts/Nunito.ttf \
+  "https://github.com/google/fonts/raw/main/ofl/nunito/Nunito%5Bwght%5D.ttf"
+# Linux
+mkdir -p ~/.fonts && curl -fsSL -o ~/.fonts/Nunito.ttf \
+  "https://github.com/google/fonts/raw/main/ofl/nunito/Nunito%5Bwght%5D.ttf" && fc-cache -f
+```
 
-## Adding or editing a language
+## How it works
 
-All translatable content lives in `languages.py`:
+| File | Role |
+|------|------|
+| `languages.py` | all per-language content (emotions, feelings, UI text) + shared color palette |
+| `gen_wheel.py` | draws the wheel SVG (arc geometry, curved labels) |
+| `build_html.py` | wraps the SVG in a print-ready A4 HTML + the monthly tracker |
+| `build.py` | orchestrates SVG → HTML → PDF/preview, and packages release bundles |
+| `fit_check.js` | browser-measured check that every label fits its wedge |
 
-- `PALETTE` — the 6 shared core colors (order: Happy, Surprised, Angry, Scared,
-  Sad, Calm). Colors are the same across languages.
-- `LANGUAGES["xx"]` — one entry per language with the 6 core names + their 4
-  feelings, plus all UI strings (title, subtitle, center prompt, how-to, calendar).
-- `core_font` — the uniform curved-label size for that language, chosen so its
-  longest core word fills the wedge with `CORE_PAD` px of clearance. Tune it with
-  the fit-check loop below (German needed 17, English 20, Turkish 21).
+The six core labels are curved along the ring with SVG `<textPath>` (flipping on
+the bottom half so they stay upright). Because different languages have different
+word lengths, each language sets a `core_font` size so its longest word fills the
+wedge without crowding the dividers.
 
-The layout/geometry code (`gen_wheel.py`, `build_html.py`) is language-agnostic.
+### Keeping labels inside the lines (the feedback loop)
 
-## Checking that labels fit (the feedback loop)
+Rather than eyeballing font sizes, `fit_check.js` measures the **real rendered
+geometry** of every label in the browser and reports anything that overflows.
+Open `out/<lang>/index.html`, paste `fit_check.js` in the DevTools console, and
+run `fitCheck()` — `{ ok: true, fails: [] }` means everything fits. Run it after
+any change to wording or geometry.
 
-Guessing font sizes and squinting at a PNG is an open loop. `fit_check.js` closes
-it: it reads the **real rendered geometry** of every label and reports any that
-cross out of the ring (or circle) it belongs to.
+## Releases
 
-1. Open `out/<lang>/index.html` in a browser.
-2. In the DevTools console, paste `fit_check.js` and run `fitCheck()`
-   (or run the same function via the Chrome DevTools MCP `evaluate_script`).
-3. `{ ok: true, fails: [] }` means every label fits. Otherwise `fails` lists each
-   offender: curved core labels report `padEach` (clear space to each divider;
-   must be ≥ `CORE_PAD`), outer labels report `innerGap`/`outerGap`, the center
-   prompt reports `slack`. Adjust `core_font` in `languages.py` (or wedge geometry
-   in `gen_wheel.py`) and rebuild. **Run this for every language after edits.**
+Pushing a `v*` tag triggers [CI](.github/workflows/release.yml) to rebuild every
+language and publish a GitHub Release with the per-language downloadables
+attached. Pull requests build all languages as a check.
 
-The six core labels are curved along the arc (`<textPath>`), flipping on the
-bottom half so they stay upright. Outer labels stay radial and shrink by length.
+## Credits
 
-## Layout
+- Concept based on the classic emotion-wheel work of **Robert Plutchik** and
+  **Gloria Willcox**.
+- Typeface: [**Nunito**](https://fonts.google.com/specimen/Nunito) by Vernon
+  Adams et al., under the SIL Open Font License.
 
-| File | Role | Tracked |
-|------|------|---------|
-| `languages.py` | all per-language content + shared palette | ✅ |
-| `gen_wheel.py` | builds the wheel SVG (geometry) | ✅ |
-| `build_html.py` | wraps SVG in A4 HTML + monthly tracker | ✅ |
-| `build.py` | orchestrates SVG→HTML→PDF/preview per language | ✅ |
-| `fit_check.js` | browser-measured label-fit check | ✅ |
-| `out/<lang>/…` | generated svg/html/pdf/png | ❌ (`out/.gitignore`) |
+## License
 
-## Why not just download it from Scribd?
-
-This started as a request to grab a paywalled, poorly-rated Scribd upload of a
-generic feeling wheel. Generating our own gives a nicer, fully-editable,
-multi-language result we own and can reprint forever.
+[MIT](LICENSE) — use it, remix it, print a thousand of them. If it helps a kid,
+it's done its job. 💛
