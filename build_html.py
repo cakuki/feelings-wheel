@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """Wrap the generated SVG in a print-ready A4 HTML, plus a monthly emotion tracker."""
+import os
 
-with open("/Users/ckk/Desktop/duygu-carki/duygu-carki.svg") as f:
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+with open(os.path.join(HERE, "duygu-carki.svg")) as f:
     svg = f.read()
 
 CORES = [
@@ -85,6 +88,6 @@ html = f"""<!DOCTYPE html>
 </html>
 """
 
-with open("/Users/ckk/Desktop/duygu-carki/duygu-carki.html", "w") as f:
+with open(os.path.join(HERE, "duygu-carki.html"), "w") as f:
     f.write(html)
 print("HTML written, len:", len(html))

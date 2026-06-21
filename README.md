@@ -26,6 +26,22 @@ Then produce a print-ready A4 PDF (and an optional preview image):
 rsvg-convert -w 900 duygu-carki.svg -o wheel-preview.png
 ```
 
+## Checking that labels fit (the feedback loop)
+
+Guessing font sizes and squinting at the PNG is an open loop. `fit_check.js`
+closes it: it reads the **real rendered geometry** of every label and reports any
+that cross out of the ring (or circle) it belongs to.
+
+1. Open `duygu-carki.html` in a browser.
+2. In the DevTools console, paste `fit_check.js` and run `fitCheck()`
+   (or run the same function via the Chrome DevTools MCP `evaluate_script`).
+3. `{ ok: true, fails: [] }` means every label fits. Otherwise `fails` lists each
+   offender with how far it pokes inward (`innerGap < 0`) or spills outward
+   (`outerGap < 0`) — shrink that label's font in `gen_wheel.py` and re-run.
+
+Long core names (e.g. *Korkmuş*) can't fit the narrow ring at full size, so
+`gen_wheel.py` auto-shrinks core labels longer than 6 characters.
+
 ## Customizing
 
 All content lives at the top of `gen_wheel.py` in the `DATA` list —

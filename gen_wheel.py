@@ -3,6 +3,9 @@
 Designed for a 9–12 year old: 6 core emotions, each with 4 nuanced feelings.
 """
 import math
+import os
+
+HERE = os.path.dirname(os.path.abspath(__file__))
 
 CX, CY = 350, 350
 R_CENTER = 90      # inner face circle
@@ -83,7 +86,7 @@ for i, (core, color, feelings) in enumerate(DATA):
     rot = a_mid - 90
     if (a_mid % 360) > 180:
         rot += 180
-    fs_core = 22 if len(core) <= 6 else 19  # shrink long names (e.g. Korkmuş)
+    fs_core = 22 if len(core) <= 6 else 16  # shrink long names (e.g. Korkmuş) to fit the ring
     svg.append(f'<text x="{tx:.2f}" y="{ty:.2f}" font-size="{fs_core}" '
                f'font-weight="800" fill="#ffffff" text-anchor="middle" '
                f'dominant-baseline="central" '
@@ -98,6 +101,6 @@ svg.append(f'<text x="{CX}" y="{CY+25}" font-size="15" font-weight="800" fill="#
 svg.append('</svg>')
 
 svg_str = "\n".join(svg)
-with open("/Users/ckk/Desktop/duygu-carki/duygu-carki.svg", "w") as f:
+with open(os.path.join(HERE, "duygu-carki.svg"), "w") as f:
     f.write(svg_str)
 print("SVG written, len:", len(svg_str))
