@@ -14,7 +14,10 @@ it, put it on the fridge, and use it together.
 
 ## ⬇️ Download &amp; print
 
-Grab your language from the [**latest release**](../../releases/latest):
+**Easiest:** visit the website → **https://cakuki.github.io/feelings-wheel/** and
+pick your language.
+
+Or grab your language straight from the [**latest release**](../../releases/latest):
 
 - `feelings-wheel-<lang>.pdf` — ready-to-print A4 (2 pages: wheel + tracker)
 - `feelings-wheel-<lang>.zip` — the same, plus SVG, preview image, and HTML

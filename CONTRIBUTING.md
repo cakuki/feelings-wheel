@@ -21,7 +21,12 @@ the geometry or layout code — everything translatable lives in `languages.py`.
    DevTools console, paste `fit_check.js`, and run `fitCheck()`. You want
    `{ ok: true, fails: [] }`. If a core label fails, lower that language's
    `core_font` in `languages.py` and rebuild. (See the README for details.)
-4. Open a pull request. CI builds every language; a release is cut when a
+4. Regenerate the landing page so your language gets a download card:
+   ```sh
+   python3 build_site.py        # updates docs/index.html
+   ```
+   (Add a flag for your code in `build_site.py`'s `FLAGS`/`ORDER`.)
+5. Open a pull request. CI builds every language; a release is cut when a
    maintainer pushes a version tag.
 
 ## Translation quality

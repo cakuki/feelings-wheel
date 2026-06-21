@@ -1,0 +1,159 @@
+#!/usr/bin/env python3
+"""Generate the GitHub Pages landing page (docs/index.html) from languages.py.
+
+Re-run after adding a language:  python3 build_site.py
+The page links to the *latest* GitHub release, so it never goes stale.
+"""
+import os
+
+from languages import LANGUAGES
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+REPO = "https://github.com/cakuki/feelings-wheel"
+LATEST = f"{REPO}/releases/latest/download"
+
+# Display order (English first) + a flag per language.
+ORDER = ["en", "de", "es", "fr", "tr"]
+FLAGS = {"en": "🇬🇧", "de": "🇩🇪", "es": "🇪🇸", "fr": "🇫🇷", "tr": "🇹🇷"}
+
+
+def card(code):
+    lang = LANGUAGES[code]
+    name = lang["name"]
+    return f"""\
+      <article class="card">
+        <a class="thumb" href="{LATEST}/feelings-wheel-{code}.pdf"
+           aria-label="Download the {name} feelings wheel PDF">
+          <img src="img/wheel-{code}.png" width="700" height="720"
+               alt="Feelings wheel in {name}" loading="lazy">
+        </a>
+        <h3><span class="flag" aria-hidden="true">{FLAGS[code]}</span> {name}</h3>
+        <div class="actions">
+          <a class="btn" href="{LATEST}/feelings-wheel-{code}.pdf"
+             aria-label="Download the {name} PDF">⬇️ Download PDF</a>
+          <a class="btn ghost" href="{LATEST}/feelings-wheel-{code}.zip"
+             aria-label="Download the {name} ZIP with SVG and HTML">ZIP</a>
+        </div>
+      </article>"""
+
+
+def build_html():
+    cards = "\n".join(card(c) for c in ORDER if c in LANGUAGES)
+    count = len([c for c in ORDER if c in LANGUAGES])
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Feelings Wheel — free printable emotion wheel for kids</title>
+  <meta name="description" content="A free, printable feelings wheel and monthly
+  emotion tracker to help kids name what they feel. Download a ready-to-print PDF
+  in your language.">
+  <meta property="og:title" content="Feelings Wheel 🎡">
+  <meta property="og:description" content="Free printable feelings wheel for kids,
+  in {count} languages.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="img/wheel-en.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎡</text></svg>">
+  <style>
+    :root {{
+      --bg: #FFFDF7; --ink: #2b2b2b; --muted: #6b6256; --line: #e7e0cf;
+      --accent: #4F8FCB; --accent-ink: #fff; --card: #fff;
+    }}
+    * {{ box-sizing: border-box; }}
+    html {{ scroll-behavior: smooth; }}
+    body {{
+      margin: 0; background: var(--bg); color: var(--ink);
+      font-family: 'Nunito', -apple-system, 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6;
+    }}
+    a {{ color: var(--accent); }}
+    .wrap {{ max-width: 960px; margin: 0 auto; padding: 0 20px; }}
+    header {{ text-align: center; padding: 56px 20px 8px; }}
+    h1 {{ font-size: clamp(2rem, 6vw, 3rem); margin: 0 0 8px; font-weight: 800; }}
+    .tagline {{ font-size: 1.15rem; color: var(--muted); max-width: 36ch;
+                margin: 0 auto 6px; }}
+    .langbar {{ font-size: 1.4rem; letter-spacing: 4px; margin: 14px 0 0; }}
+    main {{ padding: 24px 0 8px; }}
+    .grid {{ display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }}
+    .card {{ background: var(--card); border: 1px solid var(--line); border-radius: 18px;
+             padding: 16px; text-align: center; box-shadow: 0 2px 10px rgba(120,100,60,.06); }}
+    .thumb {{ display: block; border-radius: 12px; overflow: hidden; }}
+    .thumb img {{ width: 100%; height: auto; display: block; }}
+    .card h3 {{ margin: 12px 0 10px; font-size: 1.25rem; }}
+    .flag {{ font-size: 1.3rem; }}
+    .actions {{ display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }}
+    .btn {{ display: inline-block; background: var(--accent); color: var(--accent-ink);
+            text-decoration: none; font-weight: 700; padding: 10px 16px; border-radius: 999px;
+            border: 2px solid var(--accent); }}
+    .btn.ghost {{ background: transparent; color: var(--accent); }}
+    .btn:hover {{ filter: brightness(1.05); }}
+    a:focus-visible, .thumb:focus-visible {{ outline: 3px solid #f0a; outline-offset: 3px; }}
+    .how {{ margin: 40px auto; max-width: 60ch; background: #fff; border: 1px solid var(--line);
+            border-radius: 18px; padding: 8px 28px; }}
+    .how ol {{ padding-left: 1.2em; }}
+    .contribute {{ text-align: center; margin: 40px 0; }}
+    .contribute .btn {{ margin: 6px; }}
+    footer {{ text-align: center; color: var(--muted); padding: 30px 20px 50px;
+              border-top: 1px solid var(--line); margin-top: 30px; font-size: .95rem; }}
+    @media (prefers-reduced-motion: reduce) {{ html {{ scroll-behavior: auto; }} }}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Feelings Wheel 🎡</h1>
+      <p class="tagline">A free, printable wheel that helps kids name what they
+      feel — in their own language.</p>
+      <p class="langbar" aria-hidden="true">🇬🇧 🇩🇪 🇪🇸 🇫🇷 🇹🇷</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h2 class="visually-hidden" style="position:absolute;left:-9999px">Download your language</h2>
+    <section class="grid" aria-label="Download by language">
+{cards}
+    </section>
+
+    <section class="how" aria-labelledby="how-title">
+      <h2 id="how-title">How to use it 💛</h2>
+      <ol>
+        <li>Print the PDF on A4 at 100% (“Actual size”). Two pages: the wheel and a
+            monthly tracker.</li>
+        <li>Find the core emotion in the middle that fits, then move outward to a
+            more exact feeling in the same color.</li>
+        <li>Say it out loud and talk about <em>when</em> you felt it — there is no
+            wrong feeling.</li>
+        <li>Color one circle a day on the tracker to see the week at a glance.</li>
+      </ol>
+    </section>
+
+    <section class="contribute" aria-labelledby="contribute-title">
+      <h2 id="contribute-title">Free &amp; open source</h2>
+      <p>See how it’s made, suggest improvements, or help with translations.</p>
+      <a class="btn" href="{REPO}">⭐ View on GitHub</a>
+      <a class="btn ghost" href="{REPO}/blob/main/CONTRIBUTING.md">🌍 Add your language</a>
+      <a class="btn ghost" href="{REPO}/issues">💬 Ideas &amp; feedback</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>Made with 💛 for kids everywhere · <a href="{REPO}">cakuki/feelings-wheel</a>
+       · <a href="{REPO}/blob/main/LICENSE">MIT</a></p>
+    <p>Always links to the latest release — no account, no paywall.</p>
+  </footer>
+</body>
+</html>
+"""
+
+
+def main():
+    path = os.path.join(HERE, "docs", "index.html")
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w") as f:
+        f.write(build_html())
+    print("Site written:", path)
+
+
+if __name__ == "__main__":
+    main()
