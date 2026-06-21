@@ -1,0 +1,9 @@
+# Generated outputs — reproducible from the generator scripts, not tracked.
+*.pdf
+*.svg
+*.png
+*.html
+
+# Keep the generators and docs under version control.
+!build_html.py
+!gen_wheel.py
