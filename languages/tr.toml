@@ -21,23 +21,59 @@ cal_note = "Günün sonunda “Bugün en çok hangi duyguyu yaşadın?” diye s
 [[emotion]]
 core = "Mutlu"
 feelings = ["Neşeli", "Heyecanlı", "Gururlu", "Minnettar"]
+leaves = [["Şen", "Keyifli"], ["İstekli", "Canlı"], ["Emin", "Güçlü"], ["Şükran", "Şanslı"]]
 
 [[emotion]]
 core = "Şaşkın"
 feelings = ["Meraklı", "Hayran", "Kafası karışık", "Şok"]
+leaves = [["İlgili", "Tetikte"], ["Etkilenmiş", "Büyülenmiş"], ["Şaşırmış", "Kaybolmuş"], ["İrkilmiş", "Donakalmış"]]
 
 [[emotion]]
 core = "Kızgın"
 feelings = ["Sinirli", "Öfkeli", "Kıskanç", "Engellenmiş"]
+leaves = [["Huysuz", "Rahatsız"], ["Köpürmüş", "Çılgın"], ["Hasetli", "Dışlanmış"], ["Sıkışmış", "Yenik"]]
 
 [[emotion]]
 core = "Korkmuş"
 feelings = ["Endişeli", "Utangaç", "Tedirgin", "Panik"]
+leaves = [["Kaygılı", "Gergin"], ["Çekingen", "Mahcup"], ["Huzursuz", "Ürkek"], ["Dehşet", "Donmuş"]]
 
 [[emotion]]
 core = "Üzgün"
 feelings = ["Yalnız", "Hayal kırıklığı", "Çaresiz", "Özlemli"]
+leaves = [["Kimsesiz", "Yapayalnız"], ["Hüzünlü", "Kederli"], ["Güçsüz", "Küçük"], ["Hasret", "Buruk"]]
 
 [[emotion]]
 core = "Sakin"
 feelings = ["Huzurlu", "Rahat", "Güvende", "Memnun"]
+leaves = [["Dingin", "Sessiz"], ["Gevşek", "Yumuşak"], ["Emniyetli", "Sıcak"], ["Hoşnut", "Tatmin"]]
+
+# Landing-page UI strings (the website translates everything below the hero
+# into the selected language). Keep them short.
+[site]
+pick_language = "Dilini seç"
+pick_age = "Yaş seç"
+band1_age = "4–9 yaş"
+band1_name = "Basit"
+band1_desc = "Tek halka — 6 ana duygu. Yeni okuyanlar için büyük ve net."
+band2_age = "9–12 yaş"
+band2_name = "Standart"
+band2_desc = "İki halka — her ana duygu 4 daha kesin duyguya açılır."
+band3_age = "12+ yaş"
+band3_name = "Ayrıntılı"
+band3_desc = "Üç halka — 48 ince duyguya kadar tam harita."
+download_pdf = "PDF indir"
+download_zip = "ZIP (SVG + HTML)"
+print_hint = "A4'e %100 (“Gerçek boyut”) yazdır. 2 sayfa: çark + aylık takip."
+how_title = "Nasıl kullanılır 💛"
+how1 = "Ortadaki ana duygulardan şu an sana uyanı bul."
+how2 = "Aynı renkte daha kesin bir duyguya doğru dışa kay."
+how3 = "Yüksek sesle söyle ve ne zaman hissettiğini konuş — yanlış duygu yoktur."
+how4 = "Takip sayfasında her gün bir daireyi boya, haftayı bir bakışta gör."
+oss_title = "Ücretsiz &amp; açık kaynak"
+oss_body = "Nasıl yapıldığını gör, öneride bulun ya da çeviriye yardım et."
+btn_github = "⭐ GitHub'da gör"
+btn_contribute = "🌍 Dilini ekle"
+btn_ideas = "💬 Fikir &amp; geri bildirim"
+footer_made = "Her yerdeki çocuklar için 💛 ile yapıldı"
+footer_latest = "Her zaman en son sürüme bağlanır — hesap yok, ödeme yok."

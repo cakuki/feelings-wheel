@@ -21,23 +21,59 @@ cal_note = "Al final del día, pregunta: «¿Qué emoción sentiste más hoy?» 
 [[emotion]]
 core = "Feliz"
 feelings = ["Alegre", "Emocionado", "Orgulloso", "Agradecido"]
+leaves = [["Juguetón", "Dichoso"], ["Entusiasta", "Vivaz"], ["Seguro", "Fuerte"], ["Afortunado", "Bendecido"]]
 
 [[emotion]]
 core = "Sorprendido"
 feelings = ["Curioso", "Asombrado", "Confundido", "Impactado"]
+leaves = [["Atento", "Intrigado"], ["Maravillado", "Pasmado"], ["Perdido", "Aturdido"], ["Atónito", "Paralizado"]]
 
 [[emotion]]
 core = "Enfadado"
 feelings = ["Molesto", "Furioso", "Celoso", "Frustrado"]
+leaves = [["Gruñón", "Irritado"], ["Rabioso", "Iracundo"], ["Envidioso", "Excluido"], ["Atascado", "Vencido"]]
 
 [[emotion]]
 core = "Asustado"
 feelings = ["Preocupado", "Tímido", "Nervioso", "Aterrado"]
+leaves = [["Ansioso", "Tenso"], ["Apocado", "Cohibido"], ["Inquieto", "Agitado"], ["Espantado", "Bloqueado"]]
 
 [[emotion]]
 core = "Triste"
 feelings = ["Solo", "Decepcionado", "Indefenso", "Nostálgico"]
+leaves = [["Aislado", "Solitario"], ["Apenado", "Sombrío"], ["Débil", "Pequeño"], ["Anhelante", "Añorante"]]
 
 [[emotion]]
 core = "Tranquilo"
 feelings = ["Sereno", "Relajado", "Seguro", "Contento"]
+leaves = [["Apacible", "Quieto"], ["Suelto", "Calmado"], ["Protegido", "Cómodo"], ["Pleno", "Satisfecho"]]
+
+# Landing-page UI strings (the website translates everything below the hero
+# into the selected language). Keep them short.
+[site]
+pick_language = "Elige tu idioma"
+pick_age = "Elige una edad"
+band1_age = "4–9 años"
+band1_name = "Sencilla"
+band1_desc = "Un anillo — las 6 emociones principales. Grande y clara para quienes empiezan a leer."
+band2_age = "9–12 años"
+band2_name = "Estándar"
+band2_desc = "Dos anillos — cada emoción principal se abre en 4 más concretas."
+band3_age = "12+ años"
+band3_name = "Detallada"
+band3_desc = "Tres anillos — el mapa completo, hasta 48 emociones precisas."
+download_pdf = "Descargar PDF"
+download_zip = "ZIP (SVG + HTML)"
+print_hint = "Imprime en A4 al 100% («Tamaño real»). 2 páginas: la rueda + un calendario mensual."
+how_title = "Cómo usarla 💛"
+how1 = "Busca en el centro la emoción principal que encaje ahora."
+how2 = "Avanza hacia fuera a una emoción más concreta del mismo color."
+how3 = "Dila en voz alta y habla de cuándo la sentiste — ninguna emoción está mal."
+how4 = "Colorea un círculo al día en el calendario y mira la semana de un vistazo."
+oss_title = "Gratis y de código abierto"
+oss_body = "Mira cómo está hecha, sugiere mejoras o ayuda a traducirla."
+btn_github = "⭐ Ver en GitHub"
+btn_contribute = "🌍 Añade tu idioma"
+btn_ideas = "💬 Ideas y comentarios"
+footer_made = "Hecho con 💛 para niños de todo el mundo"
+footer_latest = "Siempre enlaza con la última versión — sin cuenta, sin muro de pago."

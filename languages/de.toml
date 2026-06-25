@@ -21,23 +21,59 @@ cal_note = "Frag am Ende des Tages: „Welches Gefühl hattest du heute am meist
 [[emotion]]
 core = "Glücklich"
 feelings = ["Fröhlich", "Aufgeregt", "Stolz", "Dankbar"]
+leaves = [["Verspielt", "Heiter"], ["Eifrig", "Lebhaft"], ["Sicher", "Stark"], ["Froh", "Beschenkt"]]
 
 [[emotion]]
 core = "Überrascht"
 feelings = ["Neugierig", "Erstaunt", "Verwirrt", "Schockiert"]
+leaves = [["Gespannt", "Wach"], ["Verblüfft", "Fasziniert"], ["Ratlos", "Verloren"], ["Erschreckt", "Erstarrt"]]
 
 [[emotion]]
 core = "Wütend"
 feelings = ["Genervt", "Zornig", "Eifersüchtig", "Frustriert"]
+leaves = [["Mürrisch", "Gereizt"], ["Tobend", "Rasend"], ["Neidisch", "Verdrängt"], ["Blockiert", "Besiegt"]]
 
 [[emotion]]
 core = "Ängstlich"
 feelings = ["Besorgt", "Schüchtern", "Nervös", "Panisch"]
+leaves = [["Unruhig", "Angespannt"], ["Zaghaft", "Verlegen"], ["Zittrig", "Mulmig"], ["Verängstigt", "Erstarrt"]]
 
 [[emotion]]
 core = "Traurig"
 feelings = ["Einsam", "Enttäuscht", "Hilflos", "Sehnsüchtig"]
+leaves = [["Isoliert", "Allein"], ["Bedrückt", "Düster"], ["Schwach", "Klein"], ["Sehnend", "Wehmütig"]]
 
 [[emotion]]
 core = "Ruhig"
 feelings = ["Friedlich", "Entspannt", "Geborgen", "Zufrieden"]
+leaves = [["Gelassen", "Still"], ["Locker", "Sanft"], ["Sicher", "Behaglich"], ["Erfüllt", "Wohlig"]]
+
+# Landing-page UI strings (the website translates everything below the hero
+# into the selected language). Keep them short.
+[site]
+pick_language = "Wähle deine Sprache"
+pick_age = "Wähle ein Alter"
+band1_age = "4–9 Jahre"
+band1_name = "Einfach"
+band1_desc = "Ein Ring — die 6 Grundgefühle. Groß und klar für Leseanfänger."
+band2_age = "9–12 Jahre"
+band2_name = "Standard"
+band2_desc = "Zwei Ringe — jedes Grundgefühl öffnet sich in 4 genauere."
+band3_age = "Ab 12 Jahren"
+band3_name = "Ausführlich"
+band3_desc = "Drei Ringe — die ganze Karte, bis zu 48 feine Gefühle."
+download_pdf = "PDF herunterladen"
+download_zip = "ZIP (SVG + HTML)"
+print_hint = "Auf A4 mit 100% („Tatsächliche Größe“) drucken. 2 Seiten: Rad + Monatskalender."
+how_title = "So benutzt du es 💛"
+how1 = "Finde in der Mitte das Grundgefühl, das gerade passt."
+how2 = "Geh nach außen zu einem genaueren Gefühl in derselben Farbe."
+how3 = "Sprich es laut aus und redet darüber, wann du es gefühlt hast — kein Gefühl ist falsch."
+how4 = "Male jeden Tag einen Kreis im Kalender aus und sieh die Woche auf einen Blick."
+oss_title = "Kostenlos &amp; quelloffen"
+oss_body = "Sieh, wie es gemacht ist, schlag Verbesserungen vor oder hilf beim Übersetzen."
+btn_github = "⭐ Auf GitHub ansehen"
+btn_contribute = "🌍 Deine Sprache hinzufügen"
+btn_ideas = "💬 Ideen &amp; Feedback"
+footer_made = "Mit 💛 für Kinder überall gemacht"
+footer_latest = "Verweist immer auf die neueste Version — kein Konto, keine Bezahlschranke."

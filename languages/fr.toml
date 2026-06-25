@@ -21,23 +21,59 @@ cal_note = "À la fin de la journée, demande : « Quelle émotion as-tu ressent
 [[emotion]]
 core = "Heureux"
 feelings = ["Joyeux", "Excité", "Fier", "Reconnaissant"]
+leaves = [["Enjoué", "Gai"], ["Impatient", "Vif"], ["Confiant", "Fort"], ["Chanceux", "Béni"]]
 
 [[emotion]]
 core = "Surpris"
 feelings = ["Curieux", "Émerveillé", "Confus", "Choqué"]
+leaves = [["Attentif", "Intrigué"], ["Ébahi", "Fasciné"], ["Perdu", "Troublé"], ["Sidéré", "Figé"]]
 
 [[emotion]]
 core = "Fâché"
 feelings = ["Agacé", "Furieux", "Jaloux", "Frustré"]
+leaves = [["Grognon", "Irrité"], ["Enragé", "Rageur"], ["Envieux", "Exclu"], ["Coincé", "Vaincu"]]
 
 [[emotion]]
 core = "Effrayé"
 feelings = ["Inquiet", "Timide", "Nerveux", "Paniqué"]
+leaves = [["Anxieux", "Tendu"], ["Gêné", "Réservé"], ["Agité", "Fébrile"], ["Terrifié", "Glacé"]]
 
 [[emotion]]
 core = "Triste"
 feelings = ["Seul", "Déçu", "Impuissant", "Nostalgique"]
+leaves = [["Isolé", "Esseulé"], ["Abattu", "Morose"], ["Faible", "Petit"], ["Mélancolique", "Songeur"]]
 
 [[emotion]]
 core = "Calme"
 feelings = ["Paisible", "Détendu", "Rassuré", "Satisfait"]
+leaves = [["Serein", "Tranquille"], ["Relâché", "Souple"], ["Protégé", "Sécurisé"], ["Comblé", "Apaisé"]]
+
+# Landing-page UI strings (the website translates everything below the hero
+# into the selected language). Keep them short.
+[site]
+pick_language = "Choisis ta langue"
+pick_age = "Choisis un âge"
+band1_age = "4–9 ans"
+band1_name = "Simple"
+band1_desc = "Un anneau — les 6 émotions principales. Grand et clair pour les jeunes lecteurs."
+band2_age = "9–12 ans"
+band2_name = "Standard"
+band2_desc = "Deux anneaux — chaque émotion principale s’ouvre en 4 plus précises."
+band3_age = "12+ ans"
+band3_name = "Détaillée"
+band3_desc = "Trois anneaux — la carte complète, jusqu’à 48 émotions fines."
+download_pdf = "Télécharger le PDF"
+download_zip = "ZIP (SVG + HTML)"
+print_hint = "Imprime en A4 à 100 % (« Taille réelle »). 2 pages : la roue + un calendrier mensuel."
+how_title = "Comment l’utiliser 💛"
+how1 = "Trouve au centre l’émotion principale qui correspond maintenant."
+how2 = "Va vers l’extérieur, vers une émotion plus précise de la même couleur."
+how3 = "Dis-la à voix haute et parle de quand tu l’as ressentie — aucune émotion n’est mauvaise."
+how4 = "Colorie un cercle par jour sur le calendrier pour voir la semaine d’un coup d’œil."
+oss_title = "Gratuit et open source"
+oss_body = "Vois comment c’est fait, propose des améliorations ou aide à traduire."
+btn_github = "⭐ Voir sur GitHub"
+btn_contribute = "🌍 Ajoute ta langue"
+btn_ideas = "💬 Idées et retours"
+footer_made = "Fait avec 💛 pour les enfants du monde entier"
+footer_latest = "Renvoie toujours vers la dernière version — sans compte, sans péage."

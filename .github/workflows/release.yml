@@ -33,10 +33,13 @@ jobs:
             "https://github.com/google/fonts/raw/main/ofl/nunito/Nunito%5Bwght%5D.ttf"
           fc-cache -f
 
-      - name: Build every language and package downloadables
+      - name: Build every language and tier, and package downloadables
         env:
           CHROME: ${{ steps.chrome.outputs.chrome-path }}
         run: python3 build.py --package
+
+      - name: Regenerate the landing page (previews + cards)
+        run: python3 build_site.py
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -53,8 +56,17 @@ jobs:
           body: |
             Printable **Feelings Wheel** + monthly emotion tracker for kids.
 
-            Download your language below — each `feelings-wheel-<lang>.pdf` is a
-            ready-to-print A4 file. The `.zip` also includes the SVG, a preview
-            image, and the printable HTML.
+            Three age levels per language — pick by how many rings:
+
+            - `feelings-wheel-<lang>-1ring.*` — **ages 4–9**: the 6 core feelings.
+            - `feelings-wheel-<lang>-2ring.*` — **ages 9–12**: core + 24 nuanced feelings (+ tracker).
+            - `feelings-wheel-<lang>-3ring.*` — **ages 12+**: the full map, 48 fine feelings (+ tracker).
+
+            Each `.pdf` is a ready-to-print A4 file; the `.zip` also includes the
+            SVG, a preview image, and the printable HTML. (`feelings-wheel-<lang>.*`
+            without a suffix is the 2-ring sheet, kept for older links.)
+
+            Easiest of all: **https://cakuki.github.io/feelings-wheel/** — pick your
+            language and age there.
 
             Languages: 🇬🇧 en · 🇩🇪 de · 🇪🇸 es · 🇫🇷 fr · 🇹🇷 tr

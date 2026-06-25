@@ -1,24 +1,43 @@
 #!/usr/bin/env python3
-"""Generate a printable feeling wheel as SVG for a given language.
+"""Generate a printable feelings wheel as SVG for a language and a ring tier.
+
+Three tiers (how many rings around the hub):
+    1  core feelings only            ages 4–9   (early readers)
+    2  core + nuanced feelings       ages 9–12  (the classic wheel)
+    3  core + nuanced + fine feelings ages 12+  (the full map, 48 leaves)
 
 Usage:
-    python3 gen_wheel.py [lang ...] [--outdir out]
-Defaults to all languages into ./out/<lang>/wheel.svg
+    python3 gen_wheel.py [lang ...] [--tier 1 2 3] [--outdir out]
+Writes out/<lang>/<tier>ring/wheel.svg
 """
 import argparse
 import math
 import os
 
-from languages import LANGUAGES, core_data
+from languages import LANGUAGES, core_data, leaf_data
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 CX, CY = 350, 350
 R_CENTER = 90      # inner face circle
 R_CORE = 178       # core ring outer edge
-R_OUTER = 300      # outer ring outer edge
+R_OUTER = 300      # ring-2 (nuanced) outer edge
+R_LEAF = 408       # ring-3 (fine / leaves) outer edge
 R_CORE_TEXT = (R_CENTER + R_CORE) / 2  # baseline radius for curved core labels
 CORE_PAD = 16      # min px of clear space between a core label and each divider
+MARGIN = 14        # blank px between the outermost ring and the viewBox edge
+
+TIERS = (1, 2, 3)
+TIER_DIR = {1: "1ring", 2: "2ring", 3: "3ring"}
+
+
+def tier_radius(tier):
+    return {1: R_CORE, 2: R_OUTER, 3: R_LEAF}[tier]
+
+
+def tier_size(tier):
+    """Side length (px) of the square viewBox/canvas that fits this tier."""
+    return int(round(2 * (tier_radius(tier) + MARGIN)))
 
 
 def lighten(hex_color, factor):
@@ -56,44 +75,71 @@ def baseline_arc(r, a0, a1, flip):
     return f"M {x0:.2f} {y0:.2f} A {r:.2f} {r:.2f} 0 0 {sweep} {x1:.2f} {y1:.2f}"
 
 
-def build_svg(lang_code):
+def radial_label(svg, text, r_in, r_out, a0, a1, fs, color="#3a3a3a"):
+    """A label centered in a wedge, reading outward along the radius."""
+    am = (a0 + a1) / 2
+    tr = (r_in + r_out) / 2
+    tx, ty = pol(CX, CY, tr, am)
+    rot = am - 90
+    if (am % 360) > 180:  # left half -> flip so it's upright
+        rot += 180
+    svg.append(f'<text x="{tx:.2f}" y="{ty:.2f}" font-size="{fs}" '
+               f'font-weight="700" fill="{color}" text-anchor="middle" '
+               f'dominant-baseline="central" '
+               f'transform="rotate({rot:.2f} {tx:.2f} {ty:.2f})">{text}</text>')
+
+
+def build_svg(lang_code, tier=2):
     lang = LANGUAGES[lang_code]
     data = core_data(lang_code)
+    leaves = leaf_data(lang_code)
     core_font = lang["core_font"]
+
+    size = tier_size(tier)
+    vb_min = CX - size / 2  # == CY - size/2 (centered)
+    vb = f"{vb_min:.0f} {vb_min:.0f} {size} {size}"
 
     svg = ['<svg xmlns="http://www.w3.org/2000/svg" '
            'xmlns:xlink="http://www.w3.org/1999/xlink" '
-           'viewBox="0 0 700 720" font-family="Nunito, Verdana, sans-serif">']
+           f'viewBox="{vb}" width="{size}" height="{size}" '
+           'font-family="Nunito, Verdana, sans-serif">']
     defs = ['<defs>']
-    svg.append('<rect x="0" y="0" width="700" height="720" fill="#FFFDF7"/>')
+    svg.append(f'<rect x="{vb_min:.0f}" y="{vb_min:.0f}" width="{size}" '
+               f'height="{size}" fill="#FFFDF7"/>')
 
     n = len(data)
     core_span = 360 / n          # 60
-    outer_span = core_span / 4   # 15
+    outer_span = core_span / 4   # 15  (one ring-2 feeling)
+    leaf_span = outer_span / 2   # 7.5 (one ring-3 leaf)
 
     for i, (core, color, feelings) in enumerate(data):
         a_start = i * core_span
         a_end = a_start + core_span
         a_mid = (a_start + a_end) / 2
 
-        # outer ring (4 nuanced feelings), lighter shade, radial labels
-        for j, feel in enumerate(feelings):
-            oa0 = a_start + j * outer_span
-            oa1 = oa0 + outer_span
-            oam = (oa0 + oa1) / 2
-            shade = lighten(color, 0.45)
-            svg.append(f'<path d="{arc_segment(R_CORE, R_OUTER, oa0, oa1)}" '
-                       f'fill="{shade}" stroke="#FFFDF7" stroke-width="2.5"/>')
-            tr = (R_CORE + R_OUTER) / 2
-            tx, ty = pol(CX, CY, tr, oam)
-            rot = oam - 90  # along the radius (outward)
-            if (oam % 360) > 180:  # left half -> flip so it's upright
-                rot += 180
-            fs = 15 if len(feel) <= 9 else (13 if len(feel) <= 13 else 11)
-            svg.append(f'<text x="{tx:.2f}" y="{ty:.2f}" font-size="{fs}" '
-                       f'font-weight="700" fill="#3a3a3a" text-anchor="middle" '
-                       f'dominant-baseline="central" '
-                       f'transform="rotate({rot:.2f} {tx:.2f} {ty:.2f})">{feel}</text>')
+        # ring 2 — 4 nuanced feelings (tiers 2 and 3)
+        if tier >= 2:
+            for j, feel in enumerate(feelings):
+                oa0 = a_start + j * outer_span
+                oa1 = oa0 + outer_span
+                shade = lighten(color, 0.45)
+                svg.append(f'<path d="{arc_segment(R_CORE, R_OUTER, oa0, oa1)}" '
+                           f'fill="{shade}" stroke="#FFFDF7" stroke-width="2.5"/>')
+                fs = 15 if len(feel) <= 9 else (13 if len(feel) <= 13 else 11)
+                radial_label(svg, feel, R_CORE, R_OUTER, oa0, oa1, fs)
+
+        # ring 3 — 2 fine "leaf" feelings under each ring-2 feeling (tier 3)
+        if tier >= 3 and leaves[i][1]:
+            _, pairs = leaves[i]
+            for j, pair in enumerate(pairs):
+                for k, leaf in enumerate(pair):
+                    la0 = a_start + j * outer_span + k * leaf_span
+                    la1 = la0 + leaf_span
+                    shade = lighten(color, 0.62)
+                    svg.append(f'<path d="{arc_segment(R_OUTER, R_LEAF, la0, la1)}" '
+                               f'fill="{shade}" stroke="#FFFDF7" stroke-width="2"/>')
+                    fs = 12 if len(leaf) <= 8 else (11 if len(leaf) <= 11 else 10)
+                    radial_label(svg, leaf, R_OUTER, R_LEAF, la0, la1, fs)
 
         # core ring (label curved along the arc, baseline follows the circle)
         svg.append(f'<path d="{arc_segment(R_CENTER, R_CORE, a_start, a_end)}" '
@@ -124,12 +170,12 @@ def build_svg(lang_code):
     return "\n".join(svg)
 
 
-def generate_svg(lang_code, outdir):
-    out = os.path.join(outdir, lang_code)
+def generate_svg(lang_code, tier, outdir):
+    out = os.path.join(outdir, lang_code, TIER_DIR[tier])
     os.makedirs(out, exist_ok=True)
     path = os.path.join(out, "wheel.svg")
     with open(path, "w") as f:
-        f.write(build_svg(lang_code))
+        f.write(build_svg(lang_code, tier))
     return path
 
 
@@ -137,10 +183,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("langs", nargs="*", default=list(LANGUAGES),
                     help="language codes (default: all)")
+    ap.add_argument("--tier", nargs="*", type=int, default=list(TIERS),
+                    choices=TIERS, help="ring tiers to build (default: 1 2 3)")
     ap.add_argument("--outdir", default=os.path.join(HERE, "out"))
     args = ap.parse_args()
     for code in (args.langs or list(LANGUAGES)):
-        print("SVG:", generate_svg(code, args.outdir))
+        for tier in args.tier:
+            print("SVG:", generate_svg(code, tier, args.outdir))
 
 
 if __name__ == "__main__":

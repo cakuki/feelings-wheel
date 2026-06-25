@@ -15,16 +15,21 @@ any code — every translation is a single [TOML](https://toml.io) file in
    so they line up with the shared colors.
    - Prefer short, child-friendly **single words** for the 6 core emotions —
      they're curved inside a ring and long words have to shrink.
-   - Give each core emotion 4 nuanced feelings for the outer ring.
+   - Give each core emotion 4 nuanced feelings (`feelings`) for ring 2, and one
+     `[a, b]` pair of short fine-grained feelings per ring-2 feeling (`leaves`)
+     for ring 3 — 48 leaves in all. Keep leaves to short single words.
+   - Translate the `[site]` block too — that's the landing-page text shown when a
+     visitor picks your language.
    - The comments in the file explain each field.
-2. Build it:
+2. Build it (all three age tiers):
    ```sh
    python3 build.py xx           # your language code
    ```
-3. **Verify the labels fit.** Open `out/xx/index.html` in a browser, open the
-   DevTools console, paste `fit_check.js`, and run `fitCheck()`. You want
-   `{ ok: true, fails: [] }`. If a core label fails, lower that language's
-   `core_font` in `languages.py` and rebuild. (See the README for details.)
+3. **Verify the labels fit.** Open `out/xx/3ring/index.html` in a browser (the
+   3-ring sheet is the tightest), open the DevTools console, paste `fit_check.js`,
+   and run `fitCheck()`. You want `{ ok: true, fails: [] }`. If a core label
+   fails, lower that language's `core_font` in its `.toml` and rebuild. (See the
+   README for details.)
 4. Regenerate the landing page so your language gets a download card:
    ```sh
    python3 build_site.py        # updates docs/index.html

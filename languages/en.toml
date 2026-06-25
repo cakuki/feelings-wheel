@@ -17,27 +17,67 @@ cal_note = "At the end of the day, ask “Which feeling did you have most today?
 
 # The 6 core emotions in canonical order (colors are shared, set in code):
 # Happy, Surprised, Angry, Scared, Sad, Calm
+#
+# feelings = the 4 ring-2 words (ages 9–12, two-ring wheel).
+# leaves   = one [a, b] pair per ring-2 feeling = the ring-3 words
+#            (ages 12+, three-ring wheel). Keep them short single words.
 
 [[emotion]]
 core = "Happy"
 feelings = ["Cheerful", "Excited", "Proud", "Grateful"]
+leaves = [["Playful", "Joyful"], ["Eager", "Lively"], ["Confident", "Strong"], ["Thankful", "Lucky"]]
 
 [[emotion]]
 core = "Surprised"
 feelings = ["Curious", "Amazed", "Confused", "Shocked"]
+leaves = [["Keen", "Alert"], ["Awed", "Wowed"], ["Puzzled", "Lost"], ["Startled", "Stunned"]]
 
 [[emotion]]
 core = "Angry"
 feelings = ["Annoyed", "Furious", "Jealous", "Frustrated"]
+leaves = [["Grumpy", "Irritated"], ["Raging", "Mad"], ["Envious", "Excluded"], ["Stuck", "Defeated"]]
 
 [[emotion]]
 core = "Scared"
 feelings = ["Worried", "Shy", "Nervous", "Panicked"]
+leaves = [["Anxious", "Tense"], ["Timid", "Bashful"], ["Jittery", "Uneasy"], ["Terrified", "Frozen"]]
 
 [[emotion]]
 core = "Sad"
 feelings = ["Lonely", "Disappointed", "Helpless", "Wistful"]
+leaves = [["Isolated", "Alone"], ["Glum", "Gloomy"], ["Weak", "Small"], ["Longing", "Yearning"]]
 
 [[emotion]]
 core = "Calm"
 feelings = ["Peaceful", "Relaxed", "Safe", "Content"]
+leaves = [["Serene", "Quiet"], ["Mellow", "Loose"], ["Secure", "Cozy"], ["Pleased", "Fulfilled"]]
+
+# Landing-page UI strings (the website translates everything below the hero
+# into the selected language). Keep them short.
+[site]
+pick_language = "Choose your language"
+pick_age = "Choose an age"
+band1_age = "Ages 4–9"
+band1_name = "Simple"
+band1_desc = "One ring — the 6 core feelings. Big and clear for early readers."
+band2_age = "Ages 9–12"
+band2_name = "Standard"
+band2_desc = "Two rings — each core feeling opens into 4 more exact ones."
+band3_age = "Ages 12+"
+band3_name = "Detailed"
+band3_desc = "Three rings — the full map, down to 48 fine-grained feelings."
+download_pdf = "Download PDF"
+download_zip = "ZIP (SVG + HTML)"
+print_hint = "Print on A4 at 100% (“Actual size”). 2 pages: the wheel + a monthly tracker."
+how_title = "How to use it 💛"
+how1 = "Find the core feeling in the middle that fits right now."
+how2 = "Move outward to a more exact feeling in the same color."
+how3 = "Say it out loud and talk about when you felt it — no feeling is wrong."
+how4 = "Color one circle a day on the tracker to see the week at a glance."
+oss_title = "Free &amp; open source"
+oss_body = "See how it’s made, suggest improvements, or help translate it."
+btn_github = "⭐ View on GitHub"
+btn_contribute = "🌍 Add your language"
+btn_ideas = "💬 Ideas &amp; feedback"
+footer_made = "Made with 💛 for kids everywhere"
+footer_latest = "Always links to the latest release — no account, no paywall."

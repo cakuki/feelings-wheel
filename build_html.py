@@ -1,17 +1,24 @@
 #!/usr/bin/env python3
-"""Wrap a generated wheel SVG in a print-ready A4 HTML (wheel + monthly tracker),
-localized per language.
+"""Wrap a generated wheel SVG in a print-ready A4 HTML, localized per language.
+
+Page 1 is always the wheel. Page 2 is the monthly feelings tracker, which we
+include only from tier 2 up — the youngest (1-ring) sheet is just the wheel.
 
 Usage:
-    python3 build_html.py [lang ...] [--outdir out]
-Reads out/<lang>/wheel.svg, writes out/<lang>/index.html
+    python3 build_html.py [lang ...] [--tier 1 2 3] [--outdir out]
+Reads out/<lang>/<tier>ring/wheel.svg, writes .../index.html
 """
 import argparse
 import os
 
 from languages import LANGUAGES, core_data
+from gen_wheel import TIERS, TIER_DIR
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+
+# Tiers that get the second-page monthly tracker (the 1-ring sheet stays a
+# single page — the calendar is too much for the youngest age band).
+CALENDAR_TIERS = {2, 3}
 
 CSS = """
   @page { size: A4; margin: 12mm; }
@@ -45,7 +52,7 @@ CSS = """
 """
 
 
-def build_html(lang_code, svg):
+def calendar_page(lang_code):
     lang = LANGUAGES[lang_code]
     legend = "".join(
         f'<span class="chip"><i style="background:{color}"></i>{name}</span>'
@@ -55,11 +62,24 @@ def build_html(lang_code, svg):
         f'<div class="day"><span class="num">{d}</span><span class="dot"></span></div>'
         for d in range(1, 32)
     )
+    return f"""
+  <section class="page">
+    <h1>{lang["cal_title"]}</h1>
+    <div class="sub">{lang["cal_subtitle"]}</div>
+    <div class="legend">{legend}</div>
+    <div class="grid">{boxes}</div>
+    <div class="note">{lang["month_label"]}: ____________  •  {lang["cal_note"]}</div>
+  </section>"""
+
+
+def build_html(lang_code, svg, tier=2):
+    lang = LANGUAGES[lang_code]
+    cal = calendar_page(lang_code) if tier in CALENDAR_TIERS else ""
     return f"""<!DOCTYPE html>
 <html lang="{lang_code}">
 <head>
 <meta charset="utf-8">
-<title>{lang["title"]} — {lang["cal_title"]}</title>
+<title>{lang["title"]} — {lang["name"]} ({tier})</title>
 <style>{CSS}</style>
 </head>
 <body>
@@ -69,36 +89,31 @@ def build_html(lang_code, svg):
     <div class="wheel">{svg}</div>
     <div class="howto"><b>{lang["howto_title"]}</b> {lang["howto_body"]}</div>
   </section>
-
-  <section class="page">
-    <h1>{lang["cal_title"]}</h1>
-    <div class="sub">{lang["cal_subtitle"]}</div>
-    <div class="legend">{legend}</div>
-    <div class="grid">{boxes}</div>
-    <div class="note">{lang["month_label"]}: ____________  •  {lang["cal_note"]}</div>
-  </section>
+{cal}
 </body>
 </html>
 """
 
 
-def generate_html(lang_code, outdir):
-    out = os.path.join(outdir, lang_code)
+def generate_html(lang_code, tier, outdir):
+    out = os.path.join(outdir, lang_code, TIER_DIR[tier])
     with open(os.path.join(out, "wheel.svg")) as f:
         svg = f.read()
     path = os.path.join(out, "index.html")
     with open(path, "w") as f:
-        f.write(build_html(lang_code, svg))
+        f.write(build_html(lang_code, svg, tier))
     return path
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("langs", nargs="*", default=list(LANGUAGES))
+    ap.add_argument("--tier", nargs="*", type=int, default=list(TIERS), choices=TIERS)
     ap.add_argument("--outdir", default=os.path.join(HERE, "out"))
     args = ap.parse_args()
     for code in (args.langs or list(LANGUAGES)):
-        print("HTML:", generate_html(code, args.outdir))
+        for tier in args.tier:
+            print("HTML:", generate_html(code, tier, args.outdir))
 
 
 if __name__ == "__main__":

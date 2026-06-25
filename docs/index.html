@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Feelings Wheel — free printable emotion wheel for kids</title>
   <meta name="description" content="A free, printable feelings wheel and monthly
-  emotion tracker to help kids name what they feel. Download a ready-to-print PDF
-  in your language.">
+  emotion tracker to help kids name what they feel. Pick your language and your
+  child's age, and download a ready-to-print PDF.">
   <meta property="og:title" content="Feelings Wheel 🎡">
   <meta property="og:description" content="Free printable feelings wheel for kids,
-  in 5 languages.">
+  in 5 languages and 3 age levels.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="img/wheel-en.png">
+  <meta property="og:image" content="img/wheel-en-2ring.png">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎡</text></svg>">
   <style>
     :root {
@@ -26,34 +26,47 @@
       line-height: 1.6;
     }
     a { color: var(--accent); }
-    .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
     header { text-align: center; padding: 56px 20px 8px; }
     h1 { font-size: clamp(2rem, 6vw, 3rem); margin: 0 0 8px; font-weight: 800; }
-    .tagline { font-size: 1.15rem; color: var(--muted); max-width: 36ch;
-                margin: 0 auto 6px; }
+    .tagline { font-size: 1.15rem; color: var(--muted); max-width: 40ch;
+               margin: 0 auto 6px; }
     .langbar { font-size: 1.4rem; letter-spacing: 4px; margin: 14px 0 0; }
-    main { padding: 24px 0 8px; }
-    .grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+    main { padding: 16px 0 8px; }
+    .picker { text-align: center; margin: 18px auto 8px; }
+    .picker label { font-weight: 800; font-size: 1.1rem; margin-right: 8px; }
+    .picker select {
+      font: inherit; font-weight: 700; padding: 10px 14px; border-radius: 12px;
+      border: 2px solid var(--line); background: #fff; color: var(--ink); cursor: pointer;
+    }
+    h2.section { text-align: center; margin: 26px 0 6px; font-size: 1.5rem; }
+    .grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
     .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px;
-             padding: 16px; text-align: center; box-shadow: 0 2px 10px rgba(120,100,60,.06); }
-    .thumb { display: block; border-radius: 12px; overflow: hidden; }
-    .thumb img { width: 100%; height: auto; display: block; }
-    .card h3 { margin: 12px 0 10px; font-size: 1.25rem; }
-    .flag { font-size: 1.3rem; }
+            padding: 16px; text-align: center; box-shadow: 0 2px 10px rgba(120,100,60,.06);
+            display: flex; flex-direction: column; }
+    .band .age { display: inline-block; background: #f3edda; color: var(--muted);
+                 font-weight: 800; font-size: .85rem; padding: 3px 10px; border-radius: 999px; }
+    .card h3 { margin: 8px 0 10px; font-size: 1.3rem; }
+    .thumb { display: block; border-radius: 12px; overflow: hidden; background: #FFFDF7; }
+    .thumb img { width: 100%; height: auto; display: block; aspect-ratio: 1 / 1;
+                 object-fit: contain; }
+    .desc { font-size: .95rem; color: var(--muted); margin: 12px 4px; flex: 1; }
     .actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
     .btn { display: inline-block; background: var(--accent); color: var(--accent-ink);
-            text-decoration: none; font-weight: 700; padding: 10px 16px; border-radius: 999px;
-            border: 2px solid var(--accent); }
+           text-decoration: none; font-weight: 700; padding: 10px 16px; border-radius: 999px;
+           border: 2px solid var(--accent); }
     .btn.ghost { background: transparent; color: var(--accent); }
     .btn:hover { filter: brightness(1.05); }
-    a:focus-visible, .thumb:focus-visible { outline: 3px solid #f0a; outline-offset: 3px; }
-    .how { margin: 40px auto; max-width: 60ch; background: #fff; border: 1px solid var(--line);
-            border-radius: 18px; padding: 8px 28px; }
+    a:focus-visible, .thumb:focus-visible, select:focus-visible {
+      outline: 3px solid #f0a; outline-offset: 3px; }
+    .hint { text-align: center; color: var(--muted); font-size: .95rem; margin: 16px auto; max-width: 60ch; }
+    .how { margin: 30px auto; max-width: 62ch; background: #fff; border: 1px solid var(--line);
+           border-radius: 18px; padding: 8px 28px; }
     .how ol { padding-left: 1.2em; }
     .contribute { text-align: center; margin: 40px 0; }
     .contribute .btn { margin: 6px; }
     footer { text-align: center; color: var(--muted); padding: 30px 20px 50px;
-              border-top: 1px solid var(--line); margin-top: 30px; font-size: .95rem; }
+             border-top: 1px solid var(--line); margin-top: 30px; font-size: .95rem; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   </style>
 </head>
@@ -62,112 +75,140 @@
     <div class="wrap">
       <h1>Feelings Wheel 🎡</h1>
       <p class="tagline">A free, printable wheel that helps kids name what they
-      feel — in their own language.</p>
+      feel — in their own language, at their own age.</p>
       <p class="langbar" aria-hidden="true">🇬🇧 🇩🇪 🇪🇸 🇫🇷 🇹🇷</p>
     </div>
   </header>
 
   <main class="wrap">
-    <h2 class="visually-hidden" style="position:absolute;left:-9999px">Download your language</h2>
-    <section class="grid" aria-label="Download by language">
+    <div class="picker">
+      <label for="lang" data-i18n="pick_language">Choose your language</label>
+      <select id="lang" aria-label="Choose your language">
+        <option value="en">🇬🇧 English</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="tr">🇹🇷 Türkçe</option>
+      </select>
+    </div>
+
+    <h2 class="section" data-i18n="pick_age">Choose an age</h2>
+    <section class="grid" aria-label="Download by age">
       <article class="card">
-        <a class="thumb" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-en.pdf"
-           aria-label="Download the English feelings wheel PDF">
-          <img src="img/wheel-en.png" width="700" height="720"
-               alt="Feelings wheel in English" loading="lazy">
+        <div class="band">
+          <span class="age" data-i18n="band1_age">Ages 4–9</span>
+          <h3 data-i18n="band1_name">Simple</h3>
+        </div>
+        <a class="thumb" id="thumb1" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-en-1ring.pdf">
+          <img id="img1" src="img/wheel-en-1ring.png" loading="lazy"
+               alt="1-ring feelings wheel preview">
         </a>
-        <h3><span class="flag" aria-hidden="true">🇬🇧</span> English</h3>
+        <p class="desc" data-i18n="band1_desc">One ring — the 6 core feelings. Big and clear for early readers.</p>
         <div class="actions">
-          <a class="btn" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-en.pdf"
-             aria-label="Download the English PDF">⬇️ Download PDF</a>
-          <a class="btn ghost" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-en.zip"
-             aria-label="Download the English ZIP with SVG and HTML">ZIP</a>
+          <a class="btn" id="pdf1" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-en-1ring.pdf"
+             data-i18n="download_pdf">Download PDF</a>
+          <a class="btn ghost" id="zip1" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-en-1ring.zip"
+             data-i18n="download_zip">ZIP (SVG + HTML)</a>
         </div>
       </article>
       <article class="card">
-        <a class="thumb" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-de.pdf"
-           aria-label="Download the Deutsch feelings wheel PDF">
-          <img src="img/wheel-de.png" width="700" height="720"
-               alt="Feelings wheel in Deutsch" loading="lazy">
+        <div class="band">
+          <span class="age" data-i18n="band2_age">Ages 9–12</span>
+          <h3 data-i18n="band2_name">Standard</h3>
+        </div>
+        <a class="thumb" id="thumb2" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-en-2ring.pdf">
+          <img id="img2" src="img/wheel-en-2ring.png" loading="lazy"
+               alt="2-ring feelings wheel preview">
         </a>
-        <h3><span class="flag" aria-hidden="true">🇩🇪</span> Deutsch</h3>
+        <p class="desc" data-i18n="band2_desc">Two rings — each core feeling opens into 4 more exact ones.</p>
         <div class="actions">
-          <a class="btn" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-de.pdf"
-             aria-label="Download the Deutsch PDF">⬇️ Download PDF</a>
-          <a class="btn ghost" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-de.zip"
-             aria-label="Download the Deutsch ZIP with SVG and HTML">ZIP</a>
+          <a class="btn" id="pdf2" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-en-2ring.pdf"
+             data-i18n="download_pdf">Download PDF</a>
+          <a class="btn ghost" id="zip2" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-en-2ring.zip"
+             data-i18n="download_zip">ZIP (SVG + HTML)</a>
         </div>
       </article>
       <article class="card">
-        <a class="thumb" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-es.pdf"
-           aria-label="Download the Español feelings wheel PDF">
-          <img src="img/wheel-es.png" width="700" height="720"
-               alt="Feelings wheel in Español" loading="lazy">
-        </a>
-        <h3><span class="flag" aria-hidden="true">🇪🇸</span> Español</h3>
-        <div class="actions">
-          <a class="btn" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-es.pdf"
-             aria-label="Download the Español PDF">⬇️ Download PDF</a>
-          <a class="btn ghost" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-es.zip"
-             aria-label="Download the Español ZIP with SVG and HTML">ZIP</a>
+        <div class="band">
+          <span class="age" data-i18n="band3_age">Ages 12+</span>
+          <h3 data-i18n="band3_name">Detailed</h3>
         </div>
-      </article>
-      <article class="card">
-        <a class="thumb" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-fr.pdf"
-           aria-label="Download the Français feelings wheel PDF">
-          <img src="img/wheel-fr.png" width="700" height="720"
-               alt="Feelings wheel in Français" loading="lazy">
+        <a class="thumb" id="thumb3" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-en-3ring.pdf">
+          <img id="img3" src="img/wheel-en-3ring.png" loading="lazy"
+               alt="3-ring feelings wheel preview">
         </a>
-        <h3><span class="flag" aria-hidden="true">🇫🇷</span> Français</h3>
+        <p class="desc" data-i18n="band3_desc">Three rings — the full map, down to 48 fine-grained feelings.</p>
         <div class="actions">
-          <a class="btn" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-fr.pdf"
-             aria-label="Download the Français PDF">⬇️ Download PDF</a>
-          <a class="btn ghost" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-fr.zip"
-             aria-label="Download the Français ZIP with SVG and HTML">ZIP</a>
-        </div>
-      </article>
-      <article class="card">
-        <a class="thumb" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-tr.pdf"
-           aria-label="Download the Türkçe feelings wheel PDF">
-          <img src="img/wheel-tr.png" width="700" height="720"
-               alt="Feelings wheel in Türkçe" loading="lazy">
-        </a>
-        <h3><span class="flag" aria-hidden="true">🇹🇷</span> Türkçe</h3>
-        <div class="actions">
-          <a class="btn" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-tr.pdf"
-             aria-label="Download the Türkçe PDF">⬇️ Download PDF</a>
-          <a class="btn ghost" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-tr.zip"
-             aria-label="Download the Türkçe ZIP with SVG and HTML">ZIP</a>
+          <a class="btn" id="pdf3" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-en-3ring.pdf"
+             data-i18n="download_pdf">Download PDF</a>
+          <a class="btn ghost" id="zip3" href="https://github.com/cakuki/feelings-wheel/releases/latest/download/feelings-wheel-en-3ring.zip"
+             data-i18n="download_zip">ZIP (SVG + HTML)</a>
         </div>
       </article>
     </section>
 
+    <p class="hint" data-i18n="print_hint">Print on A4 at 100% (“Actual size”). 2 pages: the wheel + a monthly tracker.</p>
+
     <section class="how" aria-labelledby="how-title">
-      <h2 id="how-title">How to use it 💛</h2>
+      <h2 id="how-title" data-i18n="how_title">How to use it 💛</h2>
       <ol>
-        <li>Print the PDF on A4 at 100% (“Actual size”). Two pages: the wheel and a
-            monthly tracker.</li>
-        <li>Find the core emotion in the middle that fits, then move outward to a
-            more exact feeling in the same color.</li>
-        <li>Say it out loud and talk about <em>when</em> you felt it — there is no
-            wrong feeling.</li>
-        <li>Color one circle a day on the tracker to see the week at a glance.</li>
+        <li data-i18n="how1">Find the core feeling in the middle that fits right now.</li>
+        <li data-i18n="how2">Move outward to a more exact feeling in the same color.</li>
+        <li data-i18n="how3">Say it out loud and talk about when you felt it — no feeling is wrong.</li>
+        <li data-i18n="how4">Color one circle a day on the tracker to see the week at a glance.</li>
       </ol>
     </section>
 
     <section class="contribute" aria-labelledby="contribute-title">
-      <h2 id="contribute-title">Free &amp; open source</h2>
-      <p>See how it’s made, suggest improvements, or help with translations.</p>
-      <a class="btn" href="https://github.com/cakuki/feelings-wheel">⭐ View on GitHub</a>
-      <a class="btn ghost" href="https://github.com/cakuki/feelings-wheel/blob/main/CONTRIBUTING.md">🌍 Add your language</a>
-      <a class="btn ghost" href="https://github.com/cakuki/feelings-wheel/issues">💬 Ideas &amp; feedback</a>
+      <h2 id="contribute-title" data-i18n="oss_title">Free &amp; open source</h2>
+      <p data-i18n="oss_body">See how it’s made, suggest improvements, or help translate it.</p>
+      <a class="btn" href="https://github.com/cakuki/feelings-wheel" data-i18n="btn_github">⭐ View on GitHub</a>
+      <a class="btn ghost" href="https://github.com/cakuki/feelings-wheel/blob/main/CONTRIBUTING.md" data-i18n="btn_contribute">🌍 Add your language</a>
+      <a class="btn ghost" href="https://github.com/cakuki/feelings-wheel/issues" data-i18n="btn_ideas">💬 Ideas &amp; feedback</a>
     </section>
   </main>
 
   <footer>
-    <p>Made with 💛 for kids everywhere · <a href="https://github.com/cakuki/feelings-wheel">cakuki/feelings-wheel</a>
-       · <a href="https://github.com/cakuki/feelings-wheel/blob/main/LICENSE">MIT</a></p>
-    <p>Always links to the latest release — no account, no paywall.</p>
+    <p><span data-i18n="footer_made">Made with 💛 for kids everywhere</span> ·
+       <a href="https://github.com/cakuki/feelings-wheel">cakuki/feelings-wheel</a> ·
+       <a href="https://github.com/cakuki/feelings-wheel/blob/main/LICENSE">MIT</a></p>
+    <p data-i18n="footer_latest">Always links to the latest release — no account, no paywall.</p>
   </footer>
+
+  <script>
+    const I18N = {"en": {"pick_language": "Choose your language", "pick_age": "Choose an age", "band1_age": "Ages 4–9", "band1_name": "Simple", "band1_desc": "One ring — the 6 core feelings. Big and clear for early readers.", "band2_age": "Ages 9–12", "band2_name": "Standard", "band2_desc": "Two rings — each core feeling opens into 4 more exact ones.", "band3_age": "Ages 12+", "band3_name": "Detailed", "band3_desc": "Three rings — the full map, down to 48 fine-grained feelings.", "download_pdf": "Download PDF", "download_zip": "ZIP (SVG + HTML)", "print_hint": "Print on A4 at 100% (“Actual size”). 2 pages: the wheel + a monthly tracker.", "how_title": "How to use it 💛", "how1": "Find the core feeling in the middle that fits right now.", "how2": "Move outward to a more exact feeling in the same color.", "how3": "Say it out loud and talk about when you felt it — no feeling is wrong.", "how4": "Color one circle a day on the tracker to see the week at a glance.", "oss_title": "Free &amp; open source", "oss_body": "See how it’s made, suggest improvements, or help translate it.", "btn_github": "⭐ View on GitHub", "btn_contribute": "🌍 Add your language", "btn_ideas": "💬 Ideas &amp; feedback", "footer_made": "Made with 💛 for kids everywhere", "footer_latest": "Always links to the latest release — no account, no paywall."}, "de": {"pick_language": "Wähle deine Sprache", "pick_age": "Wähle ein Alter", "band1_age": "4–9 Jahre", "band1_name": "Einfach", "band1_desc": "Ein Ring — die 6 Grundgefühle. Groß und klar für Leseanfänger.", "band2_age": "9–12 Jahre", "band2_name": "Standard", "band2_desc": "Zwei Ringe — jedes Grundgefühl öffnet sich in 4 genauere.", "band3_age": "Ab 12 Jahren", "band3_name": "Ausführlich", "band3_desc": "Drei Ringe — die ganze Karte, bis zu 48 feine Gefühle.", "download_pdf": "PDF herunterladen", "download_zip": "ZIP (SVG + HTML)", "print_hint": "Auf A4 mit 100% („Tatsächliche Größe“) drucken. 2 Seiten: Rad + Monatskalender.", "how_title": "So benutzt du es 💛", "how1": "Finde in der Mitte das Grundgefühl, das gerade passt.", "how2": "Geh nach außen zu einem genaueren Gefühl in derselben Farbe.", "how3": "Sprich es laut aus und redet darüber, wann du es gefühlt hast — kein Gefühl ist falsch.", "how4": "Male jeden Tag einen Kreis im Kalender aus und sieh die Woche auf einen Blick.", "oss_title": "Kostenlos &amp; quelloffen", "oss_body": "Sieh, wie es gemacht ist, schlag Verbesserungen vor oder hilf beim Übersetzen.", "btn_github": "⭐ Auf GitHub ansehen", "btn_contribute": "🌍 Deine Sprache hinzufügen", "btn_ideas": "💬 Ideen &amp; Feedback", "footer_made": "Mit 💛 für Kinder überall gemacht", "footer_latest": "Verweist immer auf die neueste Version — kein Konto, keine Bezahlschranke."}, "es": {"pick_language": "Elige tu idioma", "pick_age": "Elige una edad", "band1_age": "4–9 años", "band1_name": "Sencilla", "band1_desc": "Un anillo — las 6 emociones principales. Grande y clara para quienes empiezan a leer.", "band2_age": "9–12 años", "band2_name": "Estándar", "band2_desc": "Dos anillos — cada emoción principal se abre en 4 más concretas.", "band3_age": "12+ años", "band3_name": "Detallada", "band3_desc": "Tres anillos — el mapa completo, hasta 48 emociones precisas.", "download_pdf": "Descargar PDF", "download_zip": "ZIP (SVG + HTML)", "print_hint": "Imprime en A4 al 100% («Tamaño real»). 2 páginas: la rueda + un calendario mensual.", "how_title": "Cómo usarla 💛", "how1": "Busca en el centro la emoción principal que encaje ahora.", "how2": "Avanza hacia fuera a una emoción más concreta del mismo color.", "how3": "Dila en voz alta y habla de cuándo la sentiste — ninguna emoción está mal.", "how4": "Colorea un círculo al día en el calendario y mira la semana de un vistazo.", "oss_title": "Gratis y de código abierto", "oss_body": "Mira cómo está hecha, sugiere mejoras o ayuda a traducirla.", "btn_github": "⭐ Ver en GitHub", "btn_contribute": "🌍 Añade tu idioma", "btn_ideas": "💬 Ideas y comentarios", "footer_made": "Hecho con 💛 para niños de todo el mundo", "footer_latest": "Siempre enlaza con la última versión — sin cuenta, sin muro de pago."}, "fr": {"pick_language": "Choisis ta langue", "pick_age": "Choisis un âge", "band1_age": "4–9 ans", "band1_name": "Simple", "band1_desc": "Un anneau — les 6 émotions principales. Grand et clair pour les jeunes lecteurs.", "band2_age": "9–12 ans", "band2_name": "Standard", "band2_desc": "Deux anneaux — chaque émotion principale s’ouvre en 4 plus précises.", "band3_age": "12+ ans", "band3_name": "Détaillée", "band3_desc": "Trois anneaux — la carte complète, jusqu’à 48 émotions fines.", "download_pdf": "Télécharger le PDF", "download_zip": "ZIP (SVG + HTML)", "print_hint": "Imprime en A4 à 100 % (« Taille réelle »). 2 pages : la roue + un calendrier mensuel.", "how_title": "Comment l’utiliser 💛", "how1": "Trouve au centre l’émotion principale qui correspond maintenant.", "how2": "Va vers l’extérieur, vers une émotion plus précise de la même couleur.", "how3": "Dis-la à voix haute et parle de quand tu l’as ressentie — aucune émotion n’est mauvaise.", "how4": "Colorie un cercle par jour sur le calendrier pour voir la semaine d’un coup d’œil.", "oss_title": "Gratuit et open source", "oss_body": "Vois comment c’est fait, propose des améliorations ou aide à traduire.", "btn_github": "⭐ Voir sur GitHub", "btn_contribute": "🌍 Ajoute ta langue", "btn_ideas": "💬 Idées et retours", "footer_made": "Fait avec 💛 pour les enfants du monde entier", "footer_latest": "Renvoie toujours vers la dernière version — sans compte, sans péage."}, "tr": {"pick_language": "Dilini seç", "pick_age": "Yaş seç", "band1_age": "4–9 yaş", "band1_name": "Basit", "band1_desc": "Tek halka — 6 ana duygu. Yeni okuyanlar için büyük ve net.", "band2_age": "9–12 yaş", "band2_name": "Standart", "band2_desc": "İki halka — her ana duygu 4 daha kesin duyguya açılır.", "band3_age": "12+ yaş", "band3_name": "Ayrıntılı", "band3_desc": "Üç halka — 48 ince duyguya kadar tam harita.", "download_pdf": "PDF indir", "download_zip": "ZIP (SVG + HTML)", "print_hint": "A4'e %100 (“Gerçek boyut”) yazdır. 2 sayfa: çark + aylık takip.", "how_title": "Nasıl kullanılır 💛", "how1": "Ortadaki ana duygulardan şu an sana uyanı bul.", "how2": "Aynı renkte daha kesin bir duyguya doğru dışa kay.", "how3": "Yüksek sesle söyle ve ne zaman hissettiğini konuş — yanlış duygu yoktur.", "how4": "Takip sayfasında her gün bir daireyi boya, haftayı bir bakışta gör.", "oss_title": "Ücretsiz &amp; açık kaynak", "oss_body": "Nasıl yapıldığını gör, öneride bulun ya da çeviriye yardım et.", "btn_github": "⭐ GitHub'da gör", "btn_contribute": "🌍 Dilini ekle", "btn_ideas": "💬 Fikir &amp; geri bildirim", "footer_made": "Her yerdeki çocuklar için 💛 ile yapıldı", "footer_latest": "Her zaman en son sürüme bağlanır — hesap yok, ödeme yok."}};
+    const LANGS = [{"code": "en", "name": "English", "flag": "🇬🇧"}, {"code": "de", "name": "Deutsch", "flag": "🇩🇪"}, {"code": "es", "name": "Español", "flag": "🇪🇸"}, {"code": "fr", "name": "Français", "flag": "🇫🇷"}, {"code": "tr", "name": "Türkçe", "flag": "🇹🇷"}];
+    const LATEST = "https://github.com/cakuki/feelings-wheel/releases/latest/download";
+    const TIERS = [1, 2, 3];
+
+    function apply(code) {
+      const t = I18N[code] || I18N.en;
+      const name = (LANGS.find(l => l.code === code) || {}).name || code;
+      document.documentElement.lang = code;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const k = el.getAttribute('data-i18n');
+        if (t[k] != null) el.innerHTML = t[k];
+      });
+      TIERS.forEach(tier => {
+        const pdf = `${LATEST}/feelings-wheel-${code}-${tier}ring.pdf`;
+        const zip = `${LATEST}/feelings-wheel-${code}-${tier}ring.zip`;
+        document.getElementById('pdf' + tier).href = pdf;
+        document.getElementById('zip' + tier).href = zip;
+        document.getElementById('thumb' + tier).href = pdf;
+        const img = document.getElementById('img' + tier);
+        img.src = `img/wheel-${code}-${tier}ring.png`;
+        img.alt = `${tier}-ring feelings wheel in ${name}`;
+      });
+    }
+
+    const sel = document.getElementById('lang');
+    sel.addEventListener('change', e => apply(e.target.value));
+
+    // Default to the visitor's browser language when we have it.
+    const guess = (navigator.language || 'en').slice(0, 2).toLowerCase();
+    const start = I18N[guess] ? guess : 'en';
+    sel.value = start;
+    apply(start);
+  </script>
 </body>
 </html>

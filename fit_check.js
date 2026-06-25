@@ -12,11 +12,18 @@
 //
 // Geometry must match gen_wheel.py:
 const FIT = {
-  CX: 350, CY: 350, R_CENTER: 90, R_CORE: 178, R_OUTER: 300, MARGIN: 2,
+  CX: 350, CY: 350, R_CENTER: 90, R_CORE: 178, R_OUTER: 300, R_LEAF: 408, MARGIN: 2,
   N: 6,            // wedge count -> 60deg core wedges
   R_CORE_TEXT: (90 + 178) / 2,
   CORE_PAD: 16,    // required clear space from each divider for curved core labels
 };
+
+// Which concentric ring a radial label at radius `dist` belongs to.
+function ringBand(dist, F) {
+  if (dist < F.R_CORE) return { kind: 'core', lo: F.R_CENTER, hi: F.R_CORE };
+  if (dist < F.R_OUTER) return { kind: 'outer', lo: F.R_CORE, hi: F.R_OUTER };
+  return { kind: 'leaf', lo: F.R_OUTER, hi: F.R_LEAF };
+}
 
 function fitCheck() {
   const { CX, CY, R_CENTER, R_CORE, R_OUTER, MARGIN, N, R_CORE_TEXT, CORE_PAD } = FIT;
@@ -47,9 +54,9 @@ function fitCheck() {
       // Text lies ALONG the radius; its width is its radial extent.
       const dist = Math.hypot(x - CX, y - CY);
       const rmin = dist - bb.width / 2, rmax = dist + bb.width / 2;
-      const [lo, hi] = dist < R_CORE ? [R_CENTER, R_CORE] : [R_CORE, R_OUTER];
+      const { kind, lo, hi } = ringBand(dist, FIT);
       out.push({
-        text: t.textContent, kind: dist < R_CORE ? 'core' : 'outer',
+        text: t.textContent, kind,
         fontSize: parseFloat(t.getAttribute('font-size')),
         innerGap: +(rmin - lo).toFixed(1),  // <0 => pokes into the inner shape
         outerGap: +(hi - rmax).toFixed(1),  // <0 => spills past the outer edge
