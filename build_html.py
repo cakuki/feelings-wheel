@@ -30,7 +30,10 @@ CSS = """
   .page:last-child { page-break-after: auto; }
   h1 { font-size: 26px; margin: 2mm 0 0; color: #2b2b2b; text-align: center; }
   .sub { font-size: 13px; color: #777; margin: 1mm 0 3mm; text-align: center; }
-  .wheel { width: 165mm; max-width: 100%; }
+  .wheel { width: 165mm; max-width: 100%; margin: 0 auto; }
+  /* The SVG carries its own px width/height per tier; force it to scale to the
+     (centered) box so every tier is centered and fits the page, not just 2-ring. */
+  .wheel svg { display: block; width: 100%; height: auto; }
   .howto { font-size: 12.5px; color: #555; max-width: 165mm; margin-top: 3mm;
            line-height: 1.5; }
   .howto b { color: #333; }

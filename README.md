@@ -107,6 +107,24 @@ Open `out/<lang>/index.html`, paste `fit_check.js` in the DevTools console, and
 run `fitCheck()` — `{ ok: true, fails: [] }` means everything fits. Run it after
 any change to wording or geometry.
 
+## Tests
+
+```sh
+python3 -m unittest discover -s tests -t .
+```
+
+Pure standard library, no test framework to install. Two checks:
+
+- **SVG geometry** — the viewBox is a centered square, so the wheel sits in the
+  middle of its own canvas for every tier (fast, no browser).
+- **Print layout** — renders each tier's print HTML in headless Chrome,
+  screenshots it at A4 proportions, and measures where the colored wheel lands,
+  asserting it is horizontally centered and fits the page with margins on both
+  sides. This catches rendering bugs a font-size check can't (a wheel left-
+  aligned, or wider than the page). Skipped automatically if Chrome isn't found.
+
+CI runs the suite on every pull request and before each release.
+
 ## Releases
 
 Pushing a `v*` tag triggers [CI](.github/workflows/release.yml) to rebuild every

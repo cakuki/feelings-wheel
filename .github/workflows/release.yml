@@ -33,6 +33,11 @@ jobs:
             "https://github.com/google/fonts/raw/main/ofl/nunito/Nunito%5Bwght%5D.ttf"
           fc-cache -f
 
+      - name: Run tests (label fit + print-layout centering/fit)
+        env:
+          CHROME: ${{ steps.chrome.outputs.chrome-path }}
+        run: python3 -m unittest discover -s tests -t . -v
+
       - name: Build every language and tier, and package downloadables
         env:
           CHROME: ${{ steps.chrome.outputs.chrome-path }}

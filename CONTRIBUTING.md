@@ -35,8 +35,12 @@ any code — every translation is a single [TOML](https://toml.io) file in
    python3 build_site.py        # updates docs/index.html
    ```
    (Add a flag for your code in `build_site.py`'s `FLAGS`/`ORDER`.)
-5. Open a pull request. CI builds every language; a release is cut when a
-   maintainer pushes a version tag.
+5. Run the tests (geometry + print-layout centering/fit):
+   ```sh
+   python3 -m unittest discover -s tests -t .
+   ```
+6. Open a pull request. CI builds every language and runs the tests; a release
+   is cut when a maintainer pushes a version tag.
 
 ## Translation quality
 
